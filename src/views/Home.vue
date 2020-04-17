@@ -1,18 +1,47 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <span class="text-t">{{name}},Welcome</span>
+    <img :src="img" alt="" class="imgf">
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import logo from '@/assets/image/IMG_6103.jpg'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      img:logo,
+      name:""
+    }
+    
+  },
+  methods:{
+    init(){
+      this.name=this.$store.state.CLouduser.username
+      console.log(this.$store.state.CLouduser.username)
+    }
+  },
+  mounted(){
+    this.init()
+  },
+  created(){
+    this.init()
   }
 }
 </script>
+
+<style scoped>
+.text-t{
+  text-align: center;
+  color: black;
+  font-size: 64px;
+  line-height: 64px;
+}
+.imgf{
+  width: 90%;
+  height: 90%;
+  background-size: cover;
+}
+</style>
