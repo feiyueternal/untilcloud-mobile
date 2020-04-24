@@ -1,7 +1,7 @@
 <template>
-  <div class="bgImg" :style="bgImg">
-    <span class="title">登录</span>
+  <div>
     <div class="login">
+      <span class="title">登录</span>
       <van-overlay :show="show">
         <van-loading vertical type="spinner" color="#1989fa"></van-loading>
       </van-overlay>
@@ -9,7 +9,7 @@
         <van-tab title="账号密码登录">
           <!-- <form @submit.prevent="handleLogin"> -->
           <form>
-            <van-cell-group class="login-info">
+            <div class="login-info">
               <van-field
                 v-model.trim="userlogin.username"
                 required
@@ -33,16 +33,17 @@
                 @blur="user_test"
                 autocomplete
               />
-            </van-cell-group>
+            </div>
           </form>
         </van-tab>
         <van-tab title="手机号登录">
           <form>
-            <van-cell-group class="login-info">
+            <div class="login-info">
               <van-field
                 v-model.trim="phonelogin.phone"
                 required
                 clearable
+                type="digit"
                 left-icon="phone"
                 label="手机号"
                 @blur="phone_test"
@@ -52,7 +53,7 @@
 
               <van-field
                 v-model.trim="phonelogin.verificationCode"
-                type="password"
+                type="digit"
                 left-icon="lock"
                 label="验证码"
                 placeholder="请输入验证码"
@@ -72,7 +73,7 @@
                   >{{btntxt}}</van-button>
                 </template>
               </van-field>
-            </van-cell-group>
+            </div>
           </form>
         </van-tab>
         <van-button @click="handleLogin" type="primary" size="large">登录</van-button>
@@ -85,7 +86,9 @@
           </van-col>
         </van-row>
       </van-tabs>
+      <footer class="a-footer">copyright @ 2020 福州大学 到云 工程实践07组</footer>
     </div>
+    <div class="bgImg" :style="bgImg"></div>
   </div>
 </template>
 
@@ -93,6 +96,7 @@
 import log from "@/assets/image/background1.jpg";
 
 export default {
+  name: "Login",
   data() {
     return {
       userlogin: { username: "", password: "" },
@@ -244,7 +248,7 @@ export default {
       this.$router.push({ name: "About" }); //占位
     },
     toForget() {
-      this.$router.push({ name: "About" }); //占位
+      this.$router.push({ name: "ForgetPassword" }); //占位
     }
   }
 };
@@ -252,6 +256,10 @@ export default {
 
 <style lang="less" scoped>
 .login {
+  width: 100%;
+  height: 100%;
+  z-index: 6; /*将内容至于上层*/
+  position: absolute; /*设置内容层绝对定位*/
   &-poster {
     width: 100%;
     height: 100%;
@@ -260,24 +268,36 @@ export default {
   }
   &-info {
     margin-top: 15vw;
+    border-radius: 10px;
   }
   &-btn {
-    margin-top: 10vw;
+    margin-top: 15vw;
     width: 90%;
   }
   .van-button--primary {
     color: #fff;
     background-color: #ff595f;
     border-color: #ff595f;
+    // background-color: #008b8b;
+    // border-color: #008b8b;
+    border-radius: 10px;
   }
   .van-button--large {
     width: 80%;
-    margin-top: 10vw;
+    margin-top: 15vw;
     height: 5%;
     line-height: 245%;
   }
   .van-tabs {
-    background: rgba(252, 250, 250, 0.5);
+    // background: rgba(252, 250, 250, 0.5);
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    border-radius: 10px;
+  }
+  .van-field {
+    border-radius: 10px;
+    margin-top: 10px;
   }
 }
 .van-loading {
@@ -296,6 +316,7 @@ export default {
 }
 .bgImg {
   background-size: cover;
+  filter: blur(3px);
   position: fixed;
   top: 0;
   left: 0;
@@ -306,5 +327,12 @@ export default {
   display: inline-block;
   margin-top: 40px;
   font-size: 64px;
+  margin-bottom: 40px;
+}
+.a-footer {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: black;
 }
 </style>

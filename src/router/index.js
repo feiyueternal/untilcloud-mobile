@@ -26,7 +26,10 @@ const routes = [
   {
       path:'/Home',
       name:'Home',
-      component:resolve => require(['@/views/Home.vue'],resolve)
+      component:resolve => require(['@/views/Home.vue'],resolve),
+      meta:{
+        requireAuth:true
+      }
   },
   {
       path: '/about',
@@ -40,12 +43,11 @@ const routes = [
   //   component:resolve => require(['@/views/Register.vue'],resolve)
   // },
 
-  // {
-  //   path: '/ForgetPassword',
-  //   name: 'ForgetPassword',
-  //   // component: ()=>import(/* webpackChunkName: "forgetPassword" */ '@/views/ForgetPassword.vue'),
-  //   component:resolve => require(['@/views/ForgetPassword.vue'],resolve)
-  // },
+  {
+    path: '/ForgetPassword',
+    name: 'ForgetPassword',
+    component:resolve => require(['@/views/ForgetPassword.vue'],resolve)
+  },
 
   
   // {
