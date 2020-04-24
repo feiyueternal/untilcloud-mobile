@@ -245,7 +245,7 @@ export default {
         });
     },
     toRegister() {
-      this.$router.push({ name: "About" }); //占位
+      this.$router.push({ name: "Register" }); //占位
     },
     toForget() {
       this.$router.push({ name: "ForgetPassword" }); //占位

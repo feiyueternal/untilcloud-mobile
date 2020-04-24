@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login'
 // import Changecode from '../views/Changecode'
-// import Register from '../views/Register'
+import Register from '../views/Register'
 // import ForgetPassword from '../views/ForgetPassword'
 // import Navbar from '../views/NavBar/index'
 // import Users from '../views/Users'
@@ -47,6 +47,11 @@ const routes = [
     path: '/ForgetPassword',
     name: 'ForgetPassword',
     component:resolve => require(['@/views/ForgetPassword.vue'],resolve)
+  },
+  {
+    path: '/Register',
+    name: 'Register',
+    component:resolve => require(['@/views/Register.vue'],resolve)
   },
 
   
