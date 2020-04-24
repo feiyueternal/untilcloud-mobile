@@ -3,9 +3,7 @@
     <span class="title">登录</span>
     <div class="login">
       <van-overlay :show="show">
-        <van-loading vertical type="spinner" color="#1989fa">
-
-        </van-loading>
+        <van-loading vertical type="spinner" color="#1989fa"></van-loading>
       </van-overlay>
       <van-tabs type="card" @click="tabsClick">
         <van-tab title="账号密码登录">
@@ -18,6 +16,8 @@
                 clearable
                 left-icon="friends"
                 label="账号"
+                @blur="user_test"
+                :error-message="err_user.username"
                 placeholder="请输入账号"
               />
 
@@ -29,6 +29,8 @@
                 placeholder="请输入密码"
                 required
                 clearable
+                :error-message="err_user.password"
+                @blur="user_test"
                 autocomplete
               />
             </van-cell-group>
@@ -43,6 +45,8 @@
                 clearable
                 left-icon="phone"
                 label="手机号"
+                @blur="phone_test"
+                :error-message="err_phone.phone"
                 placeholder="请输入手机号"
               />
 
@@ -54,6 +58,8 @@
                 placeholder="请输入验证码"
                 required
                 clearable
+                @blur="phone_test"
+                :error-message="err_phone.verificationCode"
                 autocomplete
               >
                 <template #button>
@@ -71,15 +77,13 @@
         </van-tab>
         <van-button @click="handleLogin" type="primary" size="large">登录</van-button>
         <van-row>
-            <van-col span="8">
-                <van-button plain type="info" @click="toForget">忘记密码</van-button>
-            </van-col>
-            <van-col offset="8" span="8">
-                <van-button plain type="info" @click="toRegister">注册账号</van-button>
-            </van-col>
+          <van-col span="8">
+            <van-button plain type="info" @click="toForget">忘记密码</van-button>
+          </van-col>
+          <van-col offset="8" span="8">
+            <van-button plain type="info" @click="toRegister">注册账号</van-button>
+          </van-col>
         </van-row>
-        
-        
       </van-tabs>
     </div>
   </div>
@@ -92,7 +96,9 @@ export default {
   data() {
     return {
       userlogin: { username: "", password: "" },
+      err_user: { username: "", password: "" },
       phonelogin: { phone: "", verificationCode: "" },
+      err_phone: { phone: "", verificationCode: "" },
       bgImg: {
         backgroundImage:
           "url(" + require("../assets/image/background1.jpg") + ") "
@@ -100,11 +106,10 @@ export default {
       time: 0, //验证码倒计时
       disabled: false, //验证码按钮可用
       btntxt: "获取验证码", //验证码按钮文字
-      show:false,//遮罩层
-      nowactive:0,
+      show: false, //遮罩层
+      nowactive: 0
     };
   },
-  created() {},
   methods: {
     timer() {
       if (this.time > 0) {
@@ -123,7 +128,6 @@ export default {
           phone: this.phonelogin.phone,
           count: 4
         };
-        console.log(data);
         var url = "/index/common/getVerificationCode";
         this.$http
           .get(url, { params: data })
@@ -142,26 +146,105 @@ export default {
             console.log(err);
             this.$notify({ type: "danger", message: "发送失败" });
           });
+      } else {
+        this.$toast("请输入手机号");
       }
     },
-    tabsClick(name, title){
-        this.nowactive=name
-        console.log(this.nowactive)
+    //表单验证
+    user_test() {
+      let test = new Promise((resolve, reject) => {
+        if (this.userlogin.username == "") {
+          this.err_user.username = "请输入账号";
+          resolve(false);
+        } else if (this.userlogin.password == "") {
+          this.err_user.username = "";
+          this.err_user.password = "请输入密码";
+          resolve(false);
+        } else {
+          this.err_user.username = "";
+          this.err_user.password = "";
+          resolve(true);
+        }
+      });
+      return test;
+    },
+    phone_test() {
+      let test = new Promise((resolve, reject) => {
+        const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+        if (this.phonelogin.phone == "") {
+          this.err_phone.phone = "请输入手机号";
+          resolve(false);
+        } else if (!reg.test(this.phonelogin.phone)) {
+          this.err_phone.phone = "手机号格式不正确";
+          resolve(false);
+        } else if (this.phonelogin.verificationCode == "") {
+          this.err_phone.phone = "";
+          this.err_phone.verificationCode = "请输入验证码";
+          resolve(false);
+        } else {
+          this.err_phone.phone = "";
+          this.err_phone.verificationCode = "";
+          resolve(true);
+        }
+      });
+      return test;
+    },
+    tabsClick(name, title) {
+      this.nowactive = name;
+      console.log(this.nowactive);
     },
     // 登录功能
     handleLogin() {
-        this.show=true
-        setTimeout(() => {
-
-            this.show=false
-
-        }, 700);
+      this.show = true;
+      setTimeout(() => {
+        if (this.nowactive == 0) {
+          var data = {
+            account: this.userlogin.username,
+            password: this.userlogin.password
+          };
+          var url = "/index/common/login";
+          this.user_test().then(res => {
+            this.toLogin(url, data);
+          });
+        } else {
+          var data = {
+            phone: this.phonelogin.phone,
+            verificationCode: this.phonelogin.verificationCode
+          };
+          var url = "/index/common/phoneLogin";
+        }
+        this.phone_test().then(res => {
+          this.toLogin(url, data);
+        });
+        this.show = false;
+      }, 700);
     },
-    toRegister(){
-        this.$router.push({ name: "About" });//占位
+    toLogin(url, data) {
+      this.$http
+        .get(url, { params: data })
+        .then(res => {
+          console.log(res);
+          if (res.data.code == 200) {
+            this.$store.commit("login", res.data.data);
+            this.$notify({ type: "success", message: "欢迎~" });
+            this.$router.push({ name: "Home" }); //占位
+            this.show = false;
+          } else {
+            console.log(res);
+            this.$toast(res.data.message);
+            this.show = false;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.show = false;
+        });
     },
-    toForget(){
-        this.$router.push({ name: "About" });//占位
+    toRegister() {
+      this.$router.push({ name: "About" }); //占位
+    },
+    toForget() {
+      this.$router.push({ name: "About" }); //占位
     }
   }
 };
@@ -197,19 +280,19 @@ export default {
     background: rgba(252, 250, 250, 0.5);
   }
 }
-.van-loading{
+.van-loading {
   width: 40px;
   height: 40px;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%)
+  transform: translateX(-50%);
 }
-.van-button--info{
-    margin-top: 5vw;
-    margin-bottom: 5vw;
-    border: 0ch;
-    background-color: rgba(0, 0, 0, 0);
-    font-size: 16px;
+.van-button--info {
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+  border: 0ch;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 16px;
 }
 .bgImg {
   background-size: cover;

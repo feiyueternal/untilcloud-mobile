@@ -36,7 +36,7 @@ export default {
 .text-t{
   text-align: center;
   color: black;
-  font-size: 64px;
+  font-size: 20px;
   line-height: 64px;
 }
 .imgf{

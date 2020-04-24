@@ -24,7 +24,7 @@ const routes = [
     component:resolve => require(['@/views/Login.vue'],resolve)
   },
   {
-      path:'/home',
+      path:'/Home',
       name:'Home',
       component:resolve => require(['@/views/Home.vue'],resolve)
   },
