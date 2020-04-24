@@ -62,9 +62,9 @@
         <!-- <van-cell-group>
         <van-cell title="选择身份"/>-->
         <!-- <div>选择身份</div> -->
-        <van-radio-group v-model="radio" direction="horizontal">
-          <van-radio name="1">老师</van-radio>
-          <van-radio name="2">学生</van-radio>
+        <van-radio-group v-model="RegisterForm.role" direction="horizontal">
+          <van-radio name="teacher">老师</van-radio>
+          <van-radio name="student">学生</van-radio>
         </van-radio-group>
         <!-- </van-cell-group> -->
 
@@ -80,7 +80,7 @@ export default {
   name: "Register",
   data() {
     return {
-      radio: "1",
+      
       bgImg: {
         backgroundImage:
           "url(" + require("../assets/image/background1.jpg") + ") "
@@ -93,6 +93,7 @@ export default {
         phone: "",
         email: "",
         confirmps: "",
+        role: "teacher",
         verificationCode: ""
       },
       err_mes: {
@@ -197,7 +198,30 @@ export default {
         this.$toast("请输入手机号");
       }
     },
-    regConfirm() {}
+    regConfirm() {
+      var data = {
+        phone: this.RegisterForm.phone,
+        password: this.RegisterForm.password
+        
+      };
+      var url =`/index/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`;
+      this.$http
+            .post(url, data)
+            .then(res => {
+              console.log(res);
+              if (res.data.code == 200) {
+                this.$message.success("注册成功");
+                this.$router.push({ name: "Login" }); 
+              } else {
+                console.log(res);
+                this.$message.error(res.data.message);
+              }
+            })
+            .catch(err => {
+              console.log(err);
+              this.$message.error("注册失败")
+            })
+    }
   }
 };
 </script>
