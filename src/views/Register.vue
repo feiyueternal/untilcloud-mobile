@@ -16,6 +16,24 @@
           required
           clearable
         />
+         <van-field
+          label="邮箱"
+          v-model.trim="RegisterForm.email"
+          placeholder="请输入您的邮箱"
+          type="email"
+          :error-message="err_mes.phone"
+          required
+          clearable
+        />
+        <van-field
+          label="姓名"
+          v-model.trim="RegisterForm.name"
+          placeholder="请输入您的姓名"
+          
+          :error-message="err_mes.phone"
+          required
+          clearable
+        />
         <van-field
           label="密码"
           v-model.trim="RegisterForm.password"
@@ -115,6 +133,7 @@ export default {
       let test = new Promise((resolve, reject) => {
         const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
         const password_reg = /^[_a-zA-Z0-9]{6,20}$/;
+        const email_reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
         this.flag = false;
         if (this.RegisterForm.phone == "") {
           this.err_mes.phone = "请输入手机号";
@@ -122,32 +141,44 @@ export default {
         } else if (!phone_reg.test(this.RegisterForm.phone)) {
           this.err_mes.phone = "手机号格式不正确";
           resolve(false);
+        } else if (this.RegisterForm.email == "") {
+          this.err_mes.email = "请输入邮箱";
+          this.err_mes.phone = "";
+        } else if (!email_reg.test(this.RegisterForm.email)) {
+          this.err_mes.phone = "";
+          this.err_mes.email = "请输入合法邮箱";
         } else if (this.RegisterForm.phone == "") {
           this.err_mes.phone = "";
+          this.err_mes.email = "";
           this.err_mes.password = "请输入新密码";
           resolve(false);
         } else if (!password_reg.test(this.RegisterForm.password)) {
           this.err_mes.phone = "";
+          this.err_mes.email = "";
           this.err_mes.password = "密码格式不规范";
           resolve(false);
         } else if (this.RegisterForm.confirmps == "") {
           this.err_mes.phone = "";
+          this.err_mes.email = "";
           this.err_mes.password = "";
           this.err_mes.confirmps = "请再次输入新密码";
           resolve(false);
         } else if (this.RegisterForm.confirmps != this.RegisterForm.password) {
           this.err_mes.phone = "";
+          this.err_mes.email = "";
           this.err_mes.password = "";
           this.err_mes.confirmps = "两次输入密码不一致";
           resolve(false);
         } else if (this.RegisterForm.verificationCode == "") {
           this.err_mes.phone = "";
+          this.err_mes.email = "";
           this.err_mes.password = "";
           this.err_mes.confirmps = "";
           this.err_mes.verificationCode = "请输入验证码";
           resolve(false);
         } else {
           this.err_mes.phone = "";
+          this.err_mes.email = "";
           this.err_mes.password = "";
           this.err_mes.confirmps = "";
           this.err_mes.verificationCode = "";
@@ -201,7 +232,9 @@ export default {
       if ((this.flag = true)) {
         var data = {
           phone: this.RegisterForm.phone,
-          password: this.RegisterForm.password
+          password: this.RegisterForm.password,
+          email: this.RegisterForm.email,
+          name: this.RegisterForm.name
         };
         var url = `/index/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`;
         this.$http
