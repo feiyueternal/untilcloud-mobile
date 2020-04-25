@@ -16,7 +16,7 @@
                 clearable
                 left-icon="friends"
                 label="账号"
-                @blur="user_test"
+                
                 :error-message="err_user.username"
                 placeholder="请输入账号"
               />
@@ -30,7 +30,7 @@
                 required
                 clearable
                 :error-message="err_user.password"
-                @blur="user_test"
+                
                 autocomplete
               />
             </div>
@@ -46,7 +46,7 @@
                 type="digit"
                 left-icon="phone"
                 label="手机号"
-                @blur="phone_test"
+                
                 :error-message="err_phone.phone"
                 placeholder="请输入手机号"
               />
@@ -59,7 +59,7 @@
                 placeholder="请输入验证码"
                 required
                 clearable
-                @blur="phone_test"
+                
                 :error-message="err_phone.verificationCode"
                 autocomplete
               >
@@ -99,6 +99,7 @@ export default {
   name: "Login",
   data() {
     return {
+      flag: false,
       userlogin: { username: "", password: "" },
       err_user: { username: "", password: "" },
       phonelogin: { phone: "", verificationCode: "" },
@@ -156,6 +157,7 @@ export default {
     },
     //表单验证
     user_test() {
+      this.flag = false;
       let test = new Promise((resolve, reject) => {
         if (this.userlogin.username == "") {
           this.err_user.username = "请输入账号";
@@ -168,11 +170,13 @@ export default {
           this.err_user.username = "";
           this.err_user.password = "";
           resolve(true);
+          this.flag = true;
         }
       });
       return test;
     },
     phone_test() {
+      this.flag = false;
       let test = new Promise((resolve, reject) => {
         const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
         if (this.phonelogin.phone == "") {
@@ -189,6 +193,7 @@ export default {
           this.err_phone.phone = "";
           this.err_phone.verificationCode = "";
           resolve(true);
+          this.flag = true;
         }
       });
       return test;
@@ -207,9 +212,13 @@ export default {
             password: this.userlogin.password
           };
           var url = "/index/common/login";
-          this.user_test().then(res => {
+          this.user_test();
+          if(this.flag = true){
             this.toLogin(url, data);
-          });
+          }
+          // this.user_test().then(res => {
+          //   this.toLogin(url, data);
+          // });
         } else {
           var data = {
             phone: this.phonelogin.phone,
@@ -217,9 +226,13 @@ export default {
           };
           var url = "/index/common/phoneLogin";
         }
-        this.phone_test().then(res => {
-          this.toLogin(url, data);
-        });
+        // this.phone_test().then(res => {
+        //   this.toLogin(url, data);
+        // });
+        this.phone_test();
+          if(this.flag = true){
+            this.toLogin(url, data);
+          }
         this.show = false;
       }, 700);
     },

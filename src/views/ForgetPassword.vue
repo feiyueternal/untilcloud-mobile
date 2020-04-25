@@ -14,7 +14,6 @@
           :error-message="err_mes.phone"
           required
           clearable
-          @blur="fp_test"
         />
         <van-field
           label="新密码"
@@ -26,7 +25,6 @@
           @click-right-icon="$toast('密码由6-20个字符组成(包括字母、数字及下划线)')"
           placeholder="请输入新密码"
           clearable
-          @blur="fp_test"
         />
         <van-field
           label="确认密码"
@@ -36,7 +34,6 @@
           :error-message="err_mes.confirmps"
           placeholder="再次输入新密码"
           clearable
-          @blur="fp_test"
         />
         <van-field
           label="验证码"
@@ -46,7 +43,6 @@
           type="digit"
           placeholder="请输入验证码"
           clearable
-          @blur="fp_test"
         >
           <template #button>
             <van-button
@@ -70,6 +66,7 @@ export default {
   name: "ForgetPassword",
   data() {
     return {
+      flag: false,
       bgImg: {
         backgroundImage:
           "url(" + require("../assets/image/background1.jpg") + ") "
@@ -98,46 +95,48 @@ export default {
     },
     //表单验证
     fp_test() {
+      this.flag = false;
       let test = new Promise((resolve, reject) => {
         const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
-        const password_reg =/^[_a-zA-Z0-9]{6,20}$/;
+        const password_reg = /^[_a-zA-Z0-9]{6,20}$/;
         if (this.ForgetForm.phone == "") {
           this.err_mes.phone = "请输入手机号";
           resolve(false);
-        } else if(!phone_reg.test(this.ForgetForm.phone)){
-            this.err_mes.phone="手机号格式不正确"
-            resolve(false)
-        }else if(this.ForgetForm.phone==""){
-            this.err_mes.phone=""
-            this.err_mes.password="请输入新密码"
-            resolve(false)
-        }else if(!password_reg.test(this.ForgetForm.password)){
-            this.err_mes.phone=""
-            this.err_mes.password="密码格式不规范"
-            resolve(false)
-        }else if(this.ForgetForm.confirmps==""){
-            this.err_mes.phone=""
-            this.err_mes.password=""
-            this.err_mes.confirmps="请再次输入新密码"
-            resolve(false)
-        }else if(this.ForgetForm.confirmps!=this.ForgetForm.password){
-            this.err_mes.phone=""
-            this.err_mes.password=""
-            this.err_mes.confirmps="两次输入密码不一致"
-            resolve(false)
-        }else if(this.ForgetForm.verificationCode==""){
-            this.err_mes.phone=""
-            this.err_mes.password=""
-            this.err_mes.confirmps=""
-            this.err_mes.verificationCode="请输入验证码"
-            resolve(false)
-        }else{
-            this.err_mes.phone=""
-            this.err_mes.password=""
-            this.err_mes.confirmps=""
-            this.err_mes.verificationCode=""
-            resolve(true)
-            console.log(resolve)
+        } else if (!phone_reg.test(this.ForgetForm.phone)) {
+          this.err_mes.phone = "手机号格式不正确";
+          resolve(false);
+        } else if (this.ForgetForm.phone == "") {
+          this.err_mes.phone = "";
+          this.err_mes.password = "请输入新密码";
+          resolve(false);
+        } else if (!password_reg.test(this.ForgetForm.password)) {
+          this.err_mes.phone = "";
+          this.err_mes.password = "密码格式不规范";
+          resolve(false);
+        } else if (this.ForgetForm.confirmps == "") {
+          this.err_mes.phone = "";
+          this.err_mes.password = "";
+          this.err_mes.confirmps = "请再次输入新密码";
+          resolve(false);
+        } else if (this.ForgetForm.confirmps != this.ForgetForm.password) {
+          this.err_mes.phone = "";
+          this.err_mes.password = "";
+          this.err_mes.confirmps = "两次输入密码不一致";
+          resolve(false);
+        } else if (this.ForgetForm.verificationCode == "") {
+          this.err_mes.phone = "";
+          this.err_mes.password = "";
+          this.err_mes.confirmps = "";
+          this.err_mes.verificationCode = "请输入验证码";
+          resolve(false);
+        } else {
+          this.err_mes.phone = "";
+          this.err_mes.password = "";
+          this.err_mes.confirmps = "";
+          this.err_mes.verificationCode = "";
+          resolve(true);
+          console.log(resolve);
+          this.flag = true;
         }
       });
       return test;
@@ -182,33 +181,36 @@ export default {
       }
     },
     FgtConfirm() {
-      var data = {
-        phone: this.ForgetForm.phone,
-        password: this.ForgetForm.password,
-        verificationCode: this.ForgetForm.verificationCode
-      };
-      var url = "/index/common/forgetPassword";
-      this.show=true
-      setTimeout(() => {
+      this.fp_test();
+      if ((this.flag = true)) {
+        var data = {
+          phone: this.ForgetForm.phone,
+          password: this.ForgetForm.password,
+          verificationCode: this.ForgetForm.verificationCode
+        };
+        var url = "/index/common/forgetPassword";
+        this.show = true;
+        setTimeout(() => {
           this.$http
-        .get(url, { params: data })
-        .then(res => {
-          if (res.data.code == 200) {
-            this.$notify({ type: "success", message: "修改密码成功" });
-            this.$router.push({ name: "Login" });
-            this.show=false
-          } else {
-            console.log(res);
-            this.$notify({ type: "danger", message: res.data.message });
-            this.show=false
-          }
-        })
-        .catch(err => {
-          console.log(err);
-          this.show=false
-        });
-        this.show=false
-      }, 700);
+            .get(url, { params: data })
+            .then(res => {
+              if (res.data.code == 200) {
+                this.$notify({ type: "success", message: "修改密码成功" });
+                this.$router.push({ name: "Login" });
+                this.show = false;
+              } else {
+                console.log(res);
+                this.$notify({ type: "danger", message: res.data.message });
+                this.show = false;
+              }
+            })
+            .catch(err => {
+              console.log(err);
+              this.show = false;
+            });
+          this.show = false;
+        }, 700);
+      }
     }
   }
 };
