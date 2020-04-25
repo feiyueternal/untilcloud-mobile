@@ -15,7 +15,6 @@
           :error-message="err_mes.phone"
           required
           clearable
-          @blur="rp_test"
         />
         <van-field
           label="密码"
@@ -27,7 +26,6 @@
           @click-right-icon="$toast('密码由6-20个字符组成(包括字母、数字及下划线)')"
           placeholder="请输入密码"
           clearable
-          @blur="rp_test"
         />
         <van-field
           label="确认密码"
@@ -37,7 +35,6 @@
           :error-message="err_mes.confirmps"
           placeholder="再次输入密码"
           clearable
-          @blur="rp_test"
         />
         <van-field
           label="验证码"
@@ -47,7 +44,6 @@
           type="digit"
           placeholder="请输入验证码"
           clearable
-          @blur="rp_test"
         >
           <template #button>
             <van-button
@@ -80,7 +76,7 @@ export default {
   name: "Register",
   data() {
     return {
-      
+      flag: false,
       bgImg: {
         backgroundImage:
           "url(" + require("../assets/image/background1.jpg") + ") "
@@ -119,6 +115,7 @@ export default {
       let test = new Promise((resolve, reject) => {
         const phone_reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
         const password_reg = /^[_a-zA-Z0-9]{6,20}$/;
+        this.flag = false;
         if (this.RegisterForm.phone == "") {
           this.err_mes.phone = "请输入手机号";
           resolve(false);
@@ -155,6 +152,7 @@ export default {
           this.err_mes.confirmps = "";
           this.err_mes.verificationCode = "";
           resolve(true);
+          this.flag = true;
         }
       });
       return test;
@@ -199,28 +197,30 @@ export default {
       }
     },
     regConfirm() {
-      var data = {
-        phone: this.RegisterForm.phone,
-        password: this.RegisterForm.password
-        
-      };
-      var url =`/index/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`;
-      this.$http
-            .post(url, data)
-            .then(res => {
+      this.rp_test();
+      if ((this.flag = true)) {
+        var data = {
+          phone: this.RegisterForm.phone,
+          password: this.RegisterForm.password
+        };
+        var url = `/index/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`;
+        this.$http
+          .post(url, data)
+          .then(res => {
+            console.log(res);
+            if (res.data.code == 200) {
+              this.$notify({ type: "success", message: "注册成功" });
+              this.$router.push({ name: "Login" });
+            } else {
               console.log(res);
-              if (res.data.code == 200) {
-                this.$message.success("注册成功");
-                this.$router.push({ name: "Login" }); 
-              } else {
-                console.log(res);
-                this.$message.error(res.data.message);
-              }
-            })
-            .catch(err => {
-              console.log(err);
-              this.$message.error("注册失败")
-            })
+              this.$notify({ type: "danger", message: res.data.message });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            this.$notify({ type: "danger", message: 注册失败 });
+          });
+      }
     }
   }
 };

@@ -137,6 +137,7 @@ export default {
             this.err_mes.confirmps=""
             this.err_mes.verificationCode=""
             resolve(true)
+            console.log(resolve)
         }
       });
       return test;
