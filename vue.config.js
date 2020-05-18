@@ -1,6 +1,8 @@
 module.exports = {
+    publicPath: './',
     assetsDir: "assets",
     lintOnSave: false,
+    indexPath: 'index.html' ,
     devServer: {
         host: "0.0.0.0",
         port: 8080,

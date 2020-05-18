@@ -55,8 +55,10 @@
           </template>
         </van-field>
         <van-button size="large" type="primary" @click="FgtConfirm">确认找回</van-button>
+        <div>{{ss}}</div>
       </div>
     </div>
+    
     <div class="bgImg" :style="bgImg"></div>
   </div>
 </template>
@@ -86,7 +88,8 @@ export default {
       time: 0, //验证码倒计时
       disabled: false, //验证码按钮可用
       btntxt: "获取验证码", //验证码按钮文字
-      show: false
+      show: false,
+      ss:""
     };
   },
   methods: {
@@ -162,6 +165,7 @@ export default {
         this.$http
           .get(url, { params: data })
           .then(res => {
+            this.ss=res.data
             if (res.data.code == 200) {
               this.$notify({ type: "success", message: "发送成功" });
               this.$dialog.alert({
@@ -174,6 +178,7 @@ export default {
           })
           .catch(err => {
             console.log(err);
+            this.ss=err
             this.$notify({ type: "danger", message: "发送失败" });
           });
       } else {

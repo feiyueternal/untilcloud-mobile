@@ -87,6 +87,7 @@
         </van-row>
       </van-tabs>
       <footer class="a-footer">copyright @ 2020 福州大学 到云 工程实践07组</footer>
+      <div>{{ss}}</div>
     </div>
     <div class="bgImg" :style="bgImg"></div>
   </div>
@@ -112,7 +113,8 @@ export default {
       disabled: false, //验证码按钮可用
       btntxt: "获取验证码", //验证码按钮文字
       show: false, //遮罩层
-      nowactive: 0
+      nowactive: 0,
+      ss:""
     };
   },
   methods: {
@@ -132,11 +134,12 @@ export default {
         var data = {
           phone: this.phonelogin.phone,
           count: 4
-        };
-        var url = "/index/common/getVerificationCode";
+        };  
+        var url = "http://47.98.142.113:8443/api/common/getVerificationCode";
         this.$http
           .get(url, { params: data })
           .then(res => {
+            this.ss=res.data
             if (res.data.code == 200) {
               this.$notify({ type: "success", message: "发送成功" });
               this.$dialog.alert({
@@ -149,6 +152,7 @@ export default {
           })
           .catch(err => {
             console.log(err);
+            this.ss=err
             this.$notify({ type: "danger", message: "发送失败" });
           });
       } else {
@@ -211,7 +215,7 @@ export default {
             account: this.userlogin.username,
             password: this.userlogin.password
           };
-          var url = "/index/common/login";
+          var url = "http://47.98.142.113:8443/api/common/login";
           this.user_test();
           if(this.flag = true){
             this.toLogin(url, data);
@@ -224,7 +228,7 @@ export default {
             phone: this.phonelogin.phone,
             verificationCode: this.phonelogin.verificationCode
           };
-          var url = "/index/common/phoneLogin";
+          var url = "http://47.98.142.113:8443/api/common/phoneLogin";
         }
         // this.phone_test().then(res => {
         //   this.toLogin(url, data);
@@ -258,10 +262,10 @@ export default {
         });
     },
     toRegister() {
-      this.$router.push({ name: "Register" }); //占位
+      this.$router.push({ name: "Register" }); 
     },
     toForget() {
-      this.$router.push({ name: "ForgetPassword" }); //占位
+      this.$router.push({ name: "ForgetPassword" }); 
     }
   }
 };
