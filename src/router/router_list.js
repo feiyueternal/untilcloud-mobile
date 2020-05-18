@@ -12,7 +12,7 @@ import Page404 from '@/views/error/Page404'
 import Page403 from '@/views/error/Page403'
 import Page500 from '@/views/error/Page500'
 import Navbar from '@/views/NavBar/index'
-
+import test from '../views/test'
 
 // export const router_list = [
 //     {
@@ -188,6 +188,7 @@ const mpalist=
         'ServerError': () => import(/* webpackChunkName: "page500" */ '@/views/error/Page500.vue'),
         'NotFound': () => import(/* webpackChunkName: "page404" */ '@/views/error/Page404.vue'),
         "DataDictionary": () => import(/* webpackChunkName: "home" */ '@/views/DataDic/DataDicIndex.vue'),
+        "test": () => import(/* webpackChunkName: "home" */ '@/views/test.vue'),
         "User": Navbar,
         "System": Navbar,
         "Error":Navbar, 

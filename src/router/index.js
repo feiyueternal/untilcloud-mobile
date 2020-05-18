@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login'
 // import Changecode from '../views/Changecode'
 import Register from '../views/Register'
+import test from '../views/test'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,11 @@ const routes = [
   path: '/Register',
   name: 'Register',
   component:resolve => require(['@/views/Register.vue'],resolve), 
+},
+{
+  path: '/test',
+  name: 'test',
+  component:resolve => require(['@/views/test.vue'],resolve), 
 },
 ]
 

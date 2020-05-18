@@ -248,7 +248,7 @@ export default {
           if (res.data.code == 200) {
             this.$store.commit("login", res.data.data);
             this.$notify({ type: "success", message: "欢迎~" });
-            this.$router.push({ name: "Home" }); //占位
+            this.$router.push({ name: "test" }); //占位
             this.show = false;
           } else {
             console.log(res);
