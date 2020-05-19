@@ -135,7 +135,8 @@ export default {
           phone: this.phonelogin.phone,
           count: 4
         };  
-        var url = "http://47.98.142.113:8443/api/common/getVerificationCode";
+        // var url = "http://47.98.142.113:8443/api/common/getVerificationCode";
+        var url = "/common/getVerificationCode";
         this.$http
           .get(url, { params: data })
           .then(res => {
@@ -215,26 +216,24 @@ export default {
             account: this.userlogin.username,
             password: this.userlogin.password
           };
-          var url = "http://47.98.142.113:8443/api/common/login";
+          // var url = "http://47.98.142.113:8443/api/common/login";
+          var url="/common/login"
           this.user_test();
           if(this.flag = true){
             this.toLogin(url, data);
           }
-          // this.user_test().then(res => {
-          //   this.toLogin(url, data);
-          // });
+
         } else {
           var data = {
             phone: this.phonelogin.phone,
             verificationCode: this.phonelogin.verificationCode
           };
-          var url = "http://47.98.142.113:8443/api/common/phoneLogin";
+          // var url = "http://47.98.142.113:8443/api/common/phoneLogin";
+          var url="/common/phoneLogin"
         }
-        // this.phone_test().then(res => {
-        //   this.toLogin(url, data);
-        // });
+
         this.phone_test();
-          if(this.flag = true){
+          if(this.flag == true){
             this.toLogin(url, data);
           }
         this.show = false;
@@ -245,6 +244,7 @@ export default {
         .get(url, { params: data })
         .then(res => {
           console.log(res);
+          this.ss=res.data
           if (res.data.code == 200) {
             this.$store.commit("login", res.data.data);
             this.$notify({ type: "success", message: "欢迎~" });
@@ -258,6 +258,7 @@ export default {
         })
         .catch(err => {
           console.log(err);
+          this.ss=err
           this.show = false;
         });
     },

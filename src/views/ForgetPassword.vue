@@ -161,7 +161,8 @@ export default {
           phone: this.ForgetForm.phone,
           count: 4
         };
-        var url = "/index/common/getVerificationCode";
+        var url = "http://47.98.142.113:8443/api/common/getVerificationCode";
+        var url="/common/getVerificationCode"
         this.$http
           .get(url, { params: data })
           .then(res => {
@@ -187,13 +188,14 @@ export default {
     },
     FgtConfirm() {
       this.fp_test();
-      if ((this.flag = true)) {
+      if ((this.flag == true)) {
         var data = {
           phone: this.ForgetForm.phone,
           password: this.ForgetForm.password,
           verificationCode: this.ForgetForm.verificationCode
         };
-        var url = "/index/common/forgetPassword";
+        // var url = "http://47.98.142.113:8443/api/common/forgetPassword";
+         var url ="/common/forgetPassword"
         this.show = true;
         setTimeout(() => {
           this.$http

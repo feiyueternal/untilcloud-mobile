@@ -205,7 +205,8 @@ export default {
           phone: this.RegisterForm.phone,
           count: 4
         };
-        var url = "/index/common/getVerificationCode";
+        // var url = "http://47.98.142.113:8443/api/common/getVerificationCode";
+        var url="/common/getVerificationCode"
         this.$http
           .get(url, { params: data })
           .then(res => {
@@ -236,7 +237,8 @@ export default {
           email: this.RegisterForm.email,
           name: this.RegisterForm.name
         };
-        var url = `/index/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`;
+        // var url = `http://47.98.142.113:8443/api/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`;
+        var url='/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`'
         this.$http
           .post(url, data)
           .then(res => {
