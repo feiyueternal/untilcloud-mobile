@@ -83,6 +83,7 @@
         <!-- </van-cell-group> -->
 
         <van-button size="large" type="primary" @click="regConfirm">确认注册</van-button>
+         <div>{{ss}}</div>
       </div>
     </div>
     <div class="bgImg" :style="bgImg"></div>
@@ -94,6 +95,7 @@ export default {
   name: "Register",
   data() {
     return {
+      ss:"",
       flag: false,
       bgImg: {
         backgroundImage:
@@ -238,11 +240,13 @@ export default {
           name: this.RegisterForm.name
         };
         // var url = `http://47.98.142.113:8443/api/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`;
-        var url='/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`'
+        var url=`/common/register/mobile?verificationCode=${this.RegisterForm.verificationCode}&role=${this.RegisterForm.role}`
+        console.log(url)
         this.$http
           .post(url, data)
           .then(res => {
             console.log(res);
+            this.ss=res.data
             if (res.data.code == 200) {
               this.$notify({ type: "success", message: "注册成功" });
               this.$router.push({ name: "Login" });
@@ -253,7 +257,8 @@ export default {
           })
           .catch(err => {
             console.log(err);
-            this.$notify({ type: "danger", message: 注册失败 });
+            this.ss=err
+            this.$notify({ type: "danger", message: "注册失败" });
           });
       }
     }

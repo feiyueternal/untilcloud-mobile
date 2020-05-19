@@ -7,7 +7,6 @@
       </van-overlay>
       <van-tabs type="card" @click="tabsClick">
         <van-tab title="账号密码登录">
-          <!-- <form @submit.prevent="handleLogin"> -->
           <form>
             <div class="login-info">
               <van-field
@@ -219,7 +218,7 @@ export default {
           // var url = "http://47.98.142.113:8443/api/common/login";
           var url="/common/login"
           this.user_test();
-          if(this.flag = true){
+          if(this.flag == true){
             this.toLogin(url, data);
           }
 
@@ -230,12 +229,11 @@ export default {
           };
           // var url = "http://47.98.142.113:8443/api/common/phoneLogin";
           var url="/common/phoneLogin"
-        }
-
-        this.phone_test();
+          this.phone_test();
           if(this.flag == true){
             this.toLogin(url, data);
           }
+        }
         this.show = false;
       }, 700);
     },
