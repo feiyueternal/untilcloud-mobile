@@ -5,6 +5,7 @@ import Login from '../views/Login'
 // import Changecode from '../views/Changecode'
 import Register from '../views/Register'
 import test from '../views/test'
+import Tabbar from '../views/Tabbar'
 
 Vue.use(VueRouter)
 
@@ -12,16 +13,7 @@ const routes = [
   {
     path: '/',
     name: 'Login',
-    // component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
     component:resolve => require(['@/views/Login.vue'],resolve)
-  },
-  {
-      path:'/Home',
-      name:'Home',
-      component:resolve => require(['@/views/Home.vue'],resolve),
-      meta:{
-        requireAuth:true
-      }
   },
   {
       path: '/about',
@@ -39,9 +31,32 @@ const routes = [
   component:resolve => require(['@/views/Register.vue'],resolve), 
 },
 {
-  path: '/test',
-  name: 'test',
-  component:resolve => require(['@/views/test.vue'],resolve), 
+  path:'/admin',
+    name: 'Admin',
+    component: Tabbar,
+    children:[
+      {
+        path:'/Home',
+        name:'Home',
+        component:resolve => require(['@/views/Home.vue'],resolve),
+      },
+      {
+        path: '/test',
+        name: 'test',
+        component:resolve => require(['@/views/test.vue'],resolve), 
+      },
+      {
+        path:'/Myinfo',
+        name:'Myinfo',
+        component:resolve => require(['@/views/MyInfo/Myinfo.vue'],resolve),
+      },
+      {
+          path:'/ChangeMyinfo',
+          name:"ChangeMyinfo",
+          component:resolve => require(['@/views/MyInfo/ChangeMyinfo.vue'],resolve),
+        }
+    ]
+    
 },
 ]
 

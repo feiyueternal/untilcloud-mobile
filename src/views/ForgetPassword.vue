@@ -161,7 +161,7 @@ export default {
           phone: this.ForgetForm.phone,
           count: 4
         };
-        var url = "http://47.98.142.113:8443/api/common/getVerificationCode";
+        // var url = "http://47.98.142.113:8443/api/common/getVerificationCode";
         var url="/common/getVerificationCode"
         this.$http
           .get(url, { params: data })

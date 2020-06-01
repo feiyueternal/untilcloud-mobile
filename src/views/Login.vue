@@ -135,7 +135,8 @@ export default {
           count: 4
         };  
         // var url = "http://47.98.142.113:8443/api/common/getVerificationCode";
-        var url = "/common/getVerificationCode";
+        // var url = "/common/getVerificationCode";
+        var url="/index/common/getVerificationCode"
         this.$http
           .get(url, { params: data })
           .then(res => {
@@ -173,8 +174,8 @@ export default {
         } else {
           this.err_user.username = "";
           this.err_user.password = "";
-          resolve(true);
           this.flag = true;
+          resolve(true);
         }
       });
       return test;
@@ -196,8 +197,8 @@ export default {
         } else {
           this.err_phone.phone = "";
           this.err_phone.verificationCode = "";
-          resolve(true);
           this.flag = true;
+          resolve(true);      
         }
       });
       return test;
@@ -213,24 +214,30 @@ export default {
         if (this.nowactive == 0) {
           var data = {
             account: this.userlogin.username,
-            password: this.userlogin.password
+            password: this.userlogin.password,
+            rememberMe:false
           };
           // var url = "http://47.98.142.113:8443/api/common/login";
-          var url="/common/login"
+          // var url="/common/login"
+          var url="/index/common/login"
           this.user_test();
           if(this.flag == true){
+            this.flag=false
             this.toLogin(url, data);
           }
 
         } else {
           var data = {
             phone: this.phonelogin.phone,
-            verificationCode: this.phonelogin.verificationCode
+            verificationCode: this.phonelogin.verificationCode,
+            rememberMe:false
           };
           // var url = "http://47.98.142.113:8443/api/common/phoneLogin";
-          var url="/common/phoneLogin"
+          // var url="/common/phoneLogin"
+          var url="/index/common/phoneLogin"
           this.phone_test();
           if(this.flag == true){
+            this.flag=false
             this.toLogin(url, data);
           }
         }
@@ -246,7 +253,7 @@ export default {
           if (res.data.code == 200) {
             this.$store.commit("login", res.data.data);
             this.$notify({ type: "success", message: "欢迎~" });
-            this.$router.push({ name: "test" }); //占位
+            this.$router.push({ name: "Home" }); //占位
             this.show = false;
           } else {
             console.log(res);

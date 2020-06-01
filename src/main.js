@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 Vue.use(Vant)
 Vue.use(less)
 
-axios.defaults.baseURL='http://47.98.142.113:8443/api'
+// axios.defaults.baseURL='http://47.98.142.113:8443/api'
 Vue.prototype.$http = axios
 
 const originalPush = Router.prototype.push

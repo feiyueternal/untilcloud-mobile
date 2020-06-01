@@ -4,6 +4,7 @@
    
     <van-button @click="test" type="primary" size="large">测试</van-button>
     <textarea name="test" id="test" cols="30" rows="10" v-model="text"></textarea>
+    <div>{{ss}}</div>
   </div>
 </template>
 
@@ -16,7 +17,8 @@ export default {
     return {
     //   img:logo,
       name:"",
-      text:''
+      text:'',
+      ss:""
     }
     
   },
@@ -26,11 +28,12 @@ export default {
       console.log(this.$store.state.CLouduser.username)
     },
     test() {
-        var url = "http://47.98.142.113:8443/api/admin/perm/all";
+        // var url = "http://47.98.142.113:8443/api/admin/perm/all";
+        var url="/admin/perm/all"
         this.$http
           .get(url)
           .then(res => {
-            // this.ss=res.data
+            this.ss=res.data
             if (res.data.code == 200) {
               this.$notify({ type: "success", message: "发送成功" });
               this.text = res.data.data;
