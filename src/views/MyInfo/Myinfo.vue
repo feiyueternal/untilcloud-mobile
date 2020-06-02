@@ -1,5 +1,7 @@
 <template>
   <div>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <div>
     <van-cell is-link to="ChangeMyinfo">
       <van-row gutter="5" type="flex">
         <van-col span="8" offset="2">
@@ -24,8 +26,8 @@
         </van-col>
       </van-row>
     </van-cell>
-
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh"></van-pull-refresh>
+    </div>
+</van-pull-refresh>
   </div>
 </template>
 

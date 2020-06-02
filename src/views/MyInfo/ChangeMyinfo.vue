@@ -120,8 +120,8 @@ export default {
         .get(url)
         .then(res => {
           if (res.data.code == 200) {
-            console.log(res.data.data);
             this.Info = res.data.data;
+            console.log(this.Info);
             this.Idenid = res.data.data.roles[0].id;
             this.Idenid = this.Idenid + "";
           }
@@ -158,16 +158,17 @@ export default {
       this.Info.school = value;
       this.showPicker1 = false;
       var Id = this.school_values[index].id;
-      console.log(Id);
+      this.Info.schoolId = Id;
+      this.Info.college=null
+      this.Info.major=null
       // var college_url=`/sys/school/get/${Id}`
       var college_url = `/index/sys/school/get/${Id}`;
-      console.log(college_url)
       this.$http
         .get(college_url)
         .then(res => {
           if (res.data.code == 200) {
-            console.log(res.data.data);
             var tmp = res.data.data;
+            this.college_select=[]
             for (var i = 0; i < tmp.length; i++) {
               this.college_select.push(tmp[i].name);
             }
@@ -183,7 +184,8 @@ export default {
       this.Info.college = value;
       this.showPicker2 = false;
       var Id = this.college_values[index].id;
-      console.log(Id);
+      this.Info.collegeId = Id;
+      this.Info.major=null
       // var major_url=`/sys/school/get/${Id}`
       var major_url = `/index/sys/school/get/${Id}`;
       this.$http
@@ -192,6 +194,7 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data.data);
             var tmp = res.data.data;
+            this.major_select=[]
             for (var i = 0; i < tmp.length; i++) {
               this.major_select.push(tmp[i].name);
             }
@@ -205,7 +208,7 @@ export default {
     },
     onConfirm3(value, index) {
       this.Info.major = value;
-      this.showPicker3 = false
+      this.showPicker3 = false;
     },
     loadSelect() {
       // var school_url='/sys/school/get'
@@ -217,6 +220,7 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data.data);
             tmp = res.data.data;
+            this.school_select=[]
             for (var i = 0; i < tmp.length; i++) {
               this.school_select.push(tmp[i].name);
             }
@@ -227,11 +231,65 @@ export default {
           console.log(err);
           this.$notify({ type: "error", message: "获取学校失败" });
         });
+      if (this.Info.schoolId) {
+
+        setTimeout(() => {
+          console.log("getcollege")
+          // var college_url=`/sys/school/get/${schoolId}`
+          var college_url = `/index/sys/school/get/${this.Info.schoolId}`;
+          this.$http
+            .get(college_url)
+            .then(res => {
+              if (res.data.code == 200) {
+                console.log("college")
+                console.log(res.data.data);
+                var tmp = res.data.data;
+                this.college_select=[]
+                for (var i = 0; i < tmp.length; i++) {
+                  this.college_select.push(tmp[i].name);
+                }
+                this.college_values = tmp;
+              }
+            })
+            .catch(err => {
+              console.log(err);
+              this.$notify({ type: "error", message: "获取学院失败" });
+            });
+        }, 500);
+        setTimeout(() => {
+          this.$nextTick(() => {
+            if (this.Info.collegeId) {
+
+              setTimeout(() => {
+                console.log("getmajor")
+                // var major_url=`/sys/school/get/${collegeId}`
+                var major_url = `/index/sys/school/get/${this.Info.collegeId}`;
+                this.$http
+                  .get(major_url)
+                  .then(res => {
+                    if (res.data.code == 200) {
+                      console.log(res.data.data);
+                      var tmp = res.data.data;
+                      this.major_select=[]
+                      for (var i = 0; i < tmp.length; i++) {
+                        this.major_select.push(tmp[i].name);
+                      }
+                      this.major_values = tmp;
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err);
+                    this.$notify({ type: "error", message: "获取专业失败" });
+                  });
+              }, 500);
+            }
+          });
+        }, 500);
+      }
     },
     Save() {
       // var url="/userInfo"
       var url = "/index/userInfo";
-      console.log(this.Info)
       var NumofId = Number(this.Idenid);
       var data = {
         id: this.Info.id,
@@ -246,9 +304,11 @@ export default {
             id: NumofId
           }
         ],
-        name: this.Info.name
+        name: this.Info.name,
+        schoolId: this.Info.schoolId,
+        collegeId: this.Info.collegeId
       };
-      console.log(data);
+      // console.log(data);
       this.$http
         .put(url, data)
         .then(res => {
@@ -265,9 +325,10 @@ export default {
   },
   mounted() {
     this.Load();
-    this.$nextTick(() => {
+    setTimeout(() => {
+      console.log(this.Info)
       this.loadSelect();
-    });
+    }, 500);
   }
 };
 </script>
