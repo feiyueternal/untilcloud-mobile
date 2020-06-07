@@ -114,7 +114,7 @@ export default {
   },
   methods: {
     Load() {
-      // var url="/userInfo"
+      // var url = "/userInfo";
       var url = "/index/userInfo";
       this.$http
         .get(url)
@@ -136,7 +136,7 @@ export default {
     },
     afterRead(file) {
       console.log(file);
-      // var url="/userInfo/cover"
+      // var url = "/userInfo/cover";
       var url = "/index/userInfo/cover";
       var data = new window.FormData();
       data.append("file", file.file);
@@ -159,16 +159,16 @@ export default {
       this.showPicker1 = false;
       var Id = this.school_values[index].id;
       this.Info.schoolId = Id;
-      this.Info.college=null
-      this.Info.major=null
-      // var college_url=`/sys/school/get/${Id}`
-      var college_url = `/index/sys/school/get/${Id}`;
+      this.Info.college = null;
+      this.Info.major = null;
+      // var college_url = `/userInfo/school/get/${Id}`;
+      var college_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(college_url)
         .then(res => {
           if (res.data.code == 200) {
             var tmp = res.data.data;
-            this.college_select=[]
+            this.college_select = [];
             for (var i = 0; i < tmp.length; i++) {
               this.college_select.push(tmp[i].name);
             }
@@ -185,16 +185,16 @@ export default {
       this.showPicker2 = false;
       var Id = this.college_values[index].id;
       this.Info.collegeId = Id;
-      this.Info.major=null
-      // var major_url=`/sys/school/get/${Id}`
-      var major_url = `/index/sys/school/get/${Id}`;
+      this.Info.major = null;
+      // var major_url = `/userInfo/school/get/${Id}`;
+      var major_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(major_url)
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data.data);
             var tmp = res.data.data;
-            this.major_select=[]
+            this.major_select = [];
             for (var i = 0; i < tmp.length; i++) {
               this.major_select.push(tmp[i].name);
             }
@@ -211,8 +211,8 @@ export default {
       this.showPicker3 = false;
     },
     loadSelect() {
-      // var school_url='/sys/school/get'
-      var school_url = "/index/sys/school/get";
+      // var school_url = "/userInfo/school/get";
+      var school_url="/index/userInfo/school/get"
       var tmp = [];
       this.$http
         .get(school_url)
@@ -220,7 +220,7 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data.data);
             tmp = res.data.data;
-            this.school_select=[]
+            this.school_select = [];
             for (var i = 0; i < tmp.length; i++) {
               this.school_select.push(tmp[i].name);
             }
@@ -232,19 +232,18 @@ export default {
           this.$notify({ type: "error", message: "获取学校失败" });
         });
       if (this.Info.schoolId) {
-
         setTimeout(() => {
-          console.log("getcollege")
-          // var college_url=`/sys/school/get/${schoolId}`
-          var college_url = `/index/sys/school/get/${this.Info.schoolId}`;
+          console.log("getcollege");
+          // var college_url = `/userInfo/school/get/${this.Info.schoolId}`;
+          var college_url = `/index/userInfo/school/get/${this.Info.schoolId}`;
           this.$http
             .get(college_url)
             .then(res => {
               if (res.data.code == 200) {
-                console.log("college")
+                console.log("college");
                 console.log(res.data.data);
                 var tmp = res.data.data;
-                this.college_select=[]
+                this.college_select = [];
                 for (var i = 0; i < tmp.length; i++) {
                   this.college_select.push(tmp[i].name);
                 }
@@ -259,18 +258,17 @@ export default {
         setTimeout(() => {
           this.$nextTick(() => {
             if (this.Info.collegeId) {
-
               setTimeout(() => {
-                console.log("getmajor")
-                // var major_url=`/sys/school/get/${collegeId}`
-                var major_url = `/index/sys/school/get/${this.Info.collegeId}`;
+                console.log("getmajor");
+                // var major_url = `/userInfo/school/get/${this.Info.collegeId}`;
+                var major_url = `/index/userInfo/school/get/${this.Info.collegeId}`;
                 this.$http
                   .get(major_url)
                   .then(res => {
                     if (res.data.code == 200) {
                       console.log(res.data.data);
                       var tmp = res.data.data;
-                      this.major_select=[]
+                      this.major_select = [];
                       for (var i = 0; i < tmp.length; i++) {
                         this.major_select.push(tmp[i].name);
                       }
@@ -288,7 +286,7 @@ export default {
       }
     },
     Save() {
-      // var url="/userInfo"
+      // var url = "/userInfo";
       var url = "/index/userInfo";
       var NumofId = Number(this.Idenid);
       var data = {
@@ -308,7 +306,6 @@ export default {
         schoolId: this.Info.schoolId,
         collegeId: this.Info.collegeId
       };
-      // console.log(data);
       this.$http
         .put(url, data)
         .then(res => {
@@ -326,7 +323,7 @@ export default {
   mounted() {
     this.Load();
     setTimeout(() => {
-      console.log(this.Info)
+      console.log(this.Info);
       this.loadSelect();
     }, 500);
   }

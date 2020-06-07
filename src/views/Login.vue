@@ -134,7 +134,6 @@ export default {
           phone: this.phonelogin.phone,
           count: 4
         };  
-        // var url = "http://47.98.142.113:8443/api/common/getVerificationCode";
         // var url = "/common/getVerificationCode";
         var url="/index/common/getVerificationCode"
         this.$http
@@ -217,7 +216,6 @@ export default {
             password: this.userlogin.password,
             rememberMe:false
           };
-          // var url = "http://47.98.142.113:8443/api/common/login";
           // var url="/common/login"
           var url="/index/common/login"
           this.user_test();
