@@ -99,6 +99,7 @@ export default {
   name: "Login",
   data() {
     return {
+      isTea: false,
       flag: false,
       userlogin: { username: "", password: "" },
       err_user: { username: "", password: "" },
@@ -116,7 +117,35 @@ export default {
       ss:""
     };
   },
+  mounted() {
+
+  },
   methods: {
+    idAuth(data) {
+ // var url = "/userInfo";
+      var url = "/index//common/login";
+      this.$http
+        .get(url,  { params: data })
+        .then(res => {
+          if (res.data.code == 200) {
+            // this.Info = res.data.data;
+            console.log(res.data.data);
+            for(var i = 0; i < res.data.data.roles.length; i++) {
+              if(res.data.data.roles[i].name == 'teacher') {
+                this.isTea = true;
+                console.log(this.isTea)
+                break;
+              } else {
+                continue;
+              }
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.$notify({ type: "danger", message: "获取用户失败" });
+        });
+    },
     timer() {
       if (this.time > 0) {
         this.time--;
@@ -221,6 +250,7 @@ export default {
           this.user_test();
           if(this.flag == true){
             this.flag=false
+            this.idAuth(data);
             this.toLogin(url, data);
           }
 
@@ -236,6 +266,7 @@ export default {
           this.phone_test();
           if(this.flag == true){
             this.flag=false
+             this.idAutha(data);
             this.toLogin(url, data);
           }
         }
@@ -251,7 +282,13 @@ export default {
           if (res.data.code == 200) {
             this.$store.commit("login", res.data.data);
             this.$notify({ type: "success", message: "欢迎~" });
-            this.$router.push({ name: "Home" }); //占位
+            console.log(this.isTea)
+            if(this.isTea == true) {
+              this.$router.push({ name: "TeacherCourse" })
+            } else {
+              this.$router.push({ name: "Home" }); //占位
+            }
+            
             this.show = false;
           } else {
             console.log(res);

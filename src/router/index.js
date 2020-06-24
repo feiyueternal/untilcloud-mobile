@@ -6,6 +6,10 @@ import Login from '../views/Login'
 import Register from '../views/Register'
 import test from '../views/test'
 import Tabbar from '../views/Tabbar'
+import TeacherTabbar from '../views/TeacherTabbar'
+import TeacherCourse from '../views/TeacherCourse'
+import CreateCourse from '../views/CreateCourse'
+import TeacherInfo from '../views/TeacherInfo'
 
 Vue.use(VueRouter)
 
@@ -39,12 +43,14 @@ const routes = [
         path:'/Home',
         name:'Home',
         component:resolve => require(['@/views/Home.vue'],resolve),
+        
       },
       {
         path: '/test',
         name: 'test',
         component:resolve => require(['@/views/test.vue'],resolve), 
       },
+      
       {
         path:'/Myinfo',
         name:'Myinfo',
@@ -55,6 +61,31 @@ const routes = [
           name:"ChangeMyinfo",
           component:resolve => require(['@/views/MyInfo/ChangeMyinfo.vue'],resolve),
         }
+    ]
+    
+},
+{
+  path:'/TeacherTabbar',
+    name: 'TeacherTabbar',
+    component: TeacherTabbar,
+    children:[
+      {
+        path:'/TeacherCourse',
+        name:'TeacherCourse',
+        component:resolve => require(['@/views/TeacherCourse.vue'],resolve),
+        
+      },
+      {
+        path: '/CreateCourse',
+        name: 'CreateCourse',
+        component:resolve => require(['@/views/CreateCourse.vue'],resolve), 
+      },
+      
+      {
+        path:'/TeacherInfo',
+        name:'TeacherInfo',
+        component:resolve => require(['@/views/TeacherInfo.vue'],resolve),
+      }
     ]
     
 },
