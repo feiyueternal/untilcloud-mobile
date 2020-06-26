@@ -121,9 +121,9 @@ export default {
 
   },
   methods: {
-    idAuth(data) {
+    idAuth(url, data) {
  // var url = "/userInfo";
-      var url = "/index//common/login";
+      // var url = "/index//common/login";
       this.$http
         .get(url,  { params: data })
         .then(res => {
@@ -139,7 +139,8 @@ export default {
                 continue;
               }
             }
-          }
+          };
+          this.toLogin(url, data);
         })
         .catch(err => {
           console.log(err);
@@ -250,8 +251,8 @@ export default {
           this.user_test();
           if(this.flag == true){
             this.flag=false
-            this.idAuth(data);
-            this.toLogin(url, data);
+            this.idAuth(url, data);
+            // this.toLogin(url, data);
           }
 
         } else {
@@ -266,8 +267,8 @@ export default {
           this.phone_test();
           if(this.flag == true){
             this.flag=false
-             this.idAutha(data);
-            this.toLogin(url, data);
+             this.idAuth(url, data);
+            // this.toLogin(ur, data);
           }
         }
         this.show = false;

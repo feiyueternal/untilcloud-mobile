@@ -1,47 +1,79 @@
 <template>
-  <div class="home">
-    <span class="text-t">{{name}},Welcome</span>
-    <img :src="img" alt="" class="imgf">
+  <div>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <div>
+    <van-cell is-link to="ChangeTeaInfo">
+      <van-row gutter="5" type="flex">
+        <van-col span="8" offset="2">
+          <van-image
+            round
+            width="5rem"
+            height="5rem"
+            :src="Info.cover"
+          >
+            <template v-slot:error>加载失败</template>
+          </van-image>
+        </van-col>
+        <van-col span="8" offset="3">
+          <van-row class="rr">
+            <van-col>{{Info.name}}</van-col>
+          </van-row>
+          <van-row></van-row>
+          <van-row>
+            <van-col v-if="Info.ino">{{Info.ino}}</van-col>
+            <van-col v-else>暂无学号/工号</van-col>
+          </van-row>
+        </van-col>
+      </van-row>
+    </van-cell>
+    </div>
+</van-pull-refresh>
   </div>
 </template>
 
 <script>
-import logo from '@/assets/image/IMG_6103.jpg'
-
 export default {
-  name: 'Home',
+  name: "Myinfo",
   data() {
     return {
-      img:logo,
-      name:""
+      Info: "",
+      isLoading: true
+    };
+  },
+  methods: {
+    Load() {
+      // var url="/userInfo"
+      var url = "/index/userInfo";
+      this.$http
+        .get(url)
+        .then(res => {
+          if (res.data.code == 200) {
+            console.log(res.data.data);
+            this.Info = res.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.$notify({ type: "danger", message: "获取用户失败" });
+        });
+    },
+    //下拉刷新
+    onRefresh() {
+      setTimeout(() => {
+        this.isLoading = false;
+        this.Load();
+      }, 1000);
+      this.isLoading = true;
     }
-    
   },
-  methods:{
-    init(){
-      this.name=this.$store.state.CLouduser.username
-      console.log(this.$store.state.CLouduser.username)
-    }
-  },
-  mounted(){
-    this.init()
-  },
-  created(){
-    this.init()
+  mounted() {
+    this.Load();
   }
-}
+};
 </script>
-
 <style scoped>
-.text-t{
-  text-align: center;
-  color: black;
-  font-size: 20px;
-  line-height: 64px;
-}
-.imgf{
-  width: 90%;
-  height: 90%;
-  background-size: cover;
+.rr {
+  padding-top: 10px;
+  margin-top: 10px;
 }
 </style>

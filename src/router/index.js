@@ -85,6 +85,11 @@ const routes = [
         path:'/TeacherInfo',
         name:'TeacherInfo',
         component:resolve => require(['@/views/TeacherInfo.vue'],resolve),
+      },
+      {
+        path:'/ChangeTeaInfo',
+        name:'ChangeTeaInfo',
+        component:resolve => require(['@/views/ChangeTeaInfo.vue'],resolve),
       }
     ]
     
