@@ -23,14 +23,16 @@
 
       <van-field label="学期" type="number" v-model="Info.semester"></van-field>
       <van-field label="学校" v-model="Info.school"></van-field>
+      <van-field label="学校ID" v-model="Info.schoolId"></van-field>
       <van-field label="学院" v-model="Info.college"></van-field>
+      <van-field label="学院ID" v-model="Info.collegeId"></van-field>
       <van-field label="专业" v-model="Info.major"></van-field>
       <van-field label="老师" v-model="Info.teacher"></van-field>
       <van-field label="学习要求" v-model="Info.learnRequire"></van-field>
       <van-field label="教学计划" v-model="Info.teachProgress"></van-field>
       <van-field label="考试安排" v-model="Info.examArrange"></van-field>
     </form>
-    <van-button @click="create" type="primary" size="large">创建</van-button>
+    <van-button @click="create" type="primary" size="small" block>创建</van-button>
   </div>
 </template>
 
@@ -45,7 +47,9 @@ export default {
         grade: "",
         semester: "",
         school: "",
+        schoolId: "",
         college: "",
+        collegeId: "",
         major: "",
         teacher: "",
         learnRequire: "",
@@ -72,12 +76,16 @@ export default {
       this.formdata.append("grade", this.Info.grade);
       this.formdata.append("semester", this.Info.semester);
       this.formdata.append("school", this.Info.school);
+
       this.formdata.append("college", this.Info.college);
+
       this.formdata.append("major", this.Info.major);
       this.formdata.append("teacher", this.Info.teacher);
       this.formdata.append("learnRequire", this.Info.learnRequire);
       this.formdata.append("teacherProgress", this.Info.teacherProgress);
       this.formdata.append("examArrange", this.Info.examArrange);
+      this.formdata.append("schoolId", this.Info.schoolId);
+      this.formdata.append("collegeId", this.Info.collegeId);
       console.log(this.formdata);
       this.$http
         .post(url, this.formdata)
@@ -85,7 +93,7 @@ export default {
           // console.log(data)
           if (res.data.code == 200) {
             console.log(res.data.data);
-            this.Info = '';
+            this.Info = "";
           } else {
             this.$notify({ type: "danger", message: res.data.message });
           }

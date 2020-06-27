@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    courseInfo: '',
     rolesData: [],
     adminMenus: [],
     CLouduser:{
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    getCourseInfo(state, item) {
+      state.courseInfo = item;
+    },
     changeRolesData(state, obj) {
       state.rolesData = [];
       for (var i = 0; i < obj.length; i++) {

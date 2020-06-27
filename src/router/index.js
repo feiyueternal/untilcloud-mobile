@@ -10,6 +10,15 @@ import TeacherTabbar from '../views/TeacherTabbar'
 import TeacherCourse from '../views/TeacherCourse'
 import CreateCourse from '../views/CreateCourse'
 import TeacherInfo from '../views/TeacherInfo'
+import TeaCourseTabbar from '../views/TeaCourseTabbar'
+import CourseStu from '../views/teaAdmin/CourseStu'
+import TeaCourseEdit from '../views/teaAdmin/TeaCourseEdit'
+import TeaSign from '../views/teaAdmin/TeaSign'
+import stuTabbar from '../views/stuTabbar'
+import message from '../views/stuCourse/message'
+import otherStu from '../views/stuCourse/otherStu'
+import stuSign from '../views/stuCourse/stuSign'
+
 
 Vue.use(VueRouter)
 
@@ -94,6 +103,50 @@ const routes = [
     ]
     
 },
+{
+  path:'/TeaCourseTabbar',
+    name: 'TeaCourseTabbar',
+    component: TeaCourseTabbar,
+    children:[
+      {
+        path:'/TeaCourseEdit',
+        name:'TeaCourseEdit',
+        component:resolve => require(['@/views/teaAdmin/TeaCourseEdit.vue'],resolve),
+      },
+      {
+        path:'/TeaSign',
+        name:'TeaSign',
+        component:resolve => require(['@/views/teaAdmin/TeaSign.vue'],resolve),
+      },
+      {
+        path:'/CourseStu',
+        name:'CourseStu',
+        component:resolve => require(['@/views/teaAdmin/CourseStu.vue'],resolve),
+      },
+    ]
+},
+{
+  path:'/stuTabbar',
+    name: 'stuTabbar',
+    component: stuTabbar,
+    children:[
+      {
+        path:'/message',
+        name:'message',
+        component:resolve => require(['@/views/stuCourse/message.vue'],resolve),
+      },
+      {
+        path:'/otherStu',
+        name:'otherStu',
+        component:resolve => require(['@/views/stuCourse/otherStu.vue'],resolve),
+      },
+      {
+        path:'/stuSign',
+        name:'stuSign',
+        component:resolve => require(['@/views/stuCourse/stuSign.vue'],resolve),
+      },
+    ]
+}
 ]
 
 const router = new VueRouter({
