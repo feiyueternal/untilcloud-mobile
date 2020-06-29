@@ -26,6 +26,9 @@
         </van-col>
       </van-row>
     </van-cell>
+    <div class="ee">
+    <van-cell center title="登出" @click="logout"/>
+    </div>
     </div>
 </van-pull-refresh>
   </div>
@@ -64,6 +67,21 @@ export default {
         this.Load();
       }, 1000);
       this.isLoading = true;
+    },
+    logout(){
+      // var url="/common/logout"
+      var url="/index/common/logout"
+        this.$http.get(url).then(res => {
+          if (res.data.code === 200) {
+            console.log(res.data)
+            this.$router.replace({path:"/"})
+          }else{
+            this.$notify({ type: "danger", message: "登出发生错误" });
+            console.log(res.data)
+          }
+        }).catch(err => {
+            console.log(err)
+        })
     }
   },
   mounted() {
@@ -75,5 +93,14 @@ export default {
 .rr {
   padding-top: 10px;
   margin-top: 10px;
+  
+}
+.ee {
+  width: 80%;
+  margin: 30px auto;
+}
+.van-cell--center{
+  background-color: mediumaquamarine;
+  font-size: 18px;
 }
 </style>
