@@ -123,6 +123,21 @@ const routes = [
         name:'CourseStu',
         component:resolve => require(['@/views/teaAdmin/CourseStu.vue'],resolve),
       },
+      {
+        path:'/TeaTimeSign',
+        name:'TeaTimeSign',
+        component:resolve => require(['@/views/teaAdmin/TeaTimeSign.vue'],resolve)
+      },
+      {
+        path:'/Teatmp',
+        name:'Teatmp',
+        component:resolve => require(['@/views/teaAdmin/Teatmp.vue'],resolve)
+      },
+      {
+        path:'/TeaHistorySign',
+        name:'TeaHistorySign',
+        component:resolve => require(['@/views/teaAdmin/TeaHistorySign.vue'],resolve)
+      }
     ]
 },
 {
@@ -145,6 +160,15 @@ const routes = [
         name:'stuSign',
         component:resolve => require(['@/views/stuCourse/stuSign.vue'],resolve),
       },
+      {
+        path:'/stuTimeSign',
+        name:'stuTimeSign',
+        component:resolve => require(['@/views/stuCourse/stuTimeSign.vue'],resolve)
+      },{
+        path:'/stuHistorySign',
+        name:'stuHistorySign',
+        component:resolve => require(['@/views/stuCourse/stuHistorySign.vue'],resolve)
+      }
     ]
 }
 ]

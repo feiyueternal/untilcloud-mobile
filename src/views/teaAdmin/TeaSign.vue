@@ -1,6 +1,13 @@
 <template>
   <div class="TeaSign">
-    
+      <van-col span="4">
+      </van-col>
+      <van-col span="8">
+    <van-button round icon="underway-o" type="info" @click="openHistory">历史签到</van-button>
+      </van-col>
+      <van-col span="8">
+    <van-button round icon="bulb-o" type="warning"  @click="openSign">发起签到</van-button>
+      </van-col>
   </div>
 </template>
 
@@ -19,6 +26,12 @@ export default {
      getCourseInfo() {
       this.courseInfo = this.$store.state.courseInfo;
       console.log(this.courseInfo)
+    },
+    openSign(){
+      this.$router.push({name:"Teatmp"})
+    },
+    openHistory(){
+      this.$router.push({name:"TeaHistorySign"})
     }
   },
   mounted(){
@@ -31,5 +44,8 @@ export default {
 </script>
 
 <style scoped>
-
+.TeaSign{
+  margin: 30px auto;
+  /* padding-top: 30px; */
+}
 </style>

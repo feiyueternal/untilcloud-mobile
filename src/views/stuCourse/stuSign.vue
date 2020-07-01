@@ -1,35 +1,76 @@
 <template>
   <div class="stuSign">
-    
+    <van-col span="4"></van-col>
+    <van-col span="8">
+      <van-button plain icon="passed" type="warning" @click="gotoSign">参与签到</van-button>
+    </van-col>
+    <van-col span="8">
+      <van-button plain icon="underway-o" type="info" @click="goHistory">历史签到</van-button>
+    </van-col>
   </div>
 </template>
 
 <script>
-
-
 export default {
-  name: 'stuSign',
+  name: "stuSign",
   data() {
     return {
-      courseInfo: '',
+      courseid: "",
+      signinfo: []
+    };
+  },
+  methods: {
+    getCourseInfo() {
+      this.courseid = this.$store.state.courseInfo.id;
+      console.log(this.courseid);
+    },
+    goHistory(){
+      this.$router.push({name:"stuHistorySign"})
+    },
+    gotoSign() {
+      // var url="/class/stu/signIn/now"
+      var url = "/index/class/stu/signIn/now";
+
+      var data = {
+        cid: this.courseid
+      };
+      //   console.log(this.courseid);
+      console.log(data);
+      this.$http
+        .get(url, { params: data })
+        .then(res => {
+          if (res.data.code == 200) {
+            if (res.data.data != null) {
+              this.signinfo = res.data.data;
+              if (this.signinfo.mode == "time") {
+                this.$router.push({
+                  name: "stuTimeSign",
+                  params: {
+                    courseinfo: this.signinfo
+                  }
+                });
+              } else {
+              }
+              console.log(this.signinfo);
+            } else {
+              this.$notify({ type: "danger", message: "当前无签到" });
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
-    
   },
-  methods:{
-   getCourseInfo() {
-      this.courseInfo = this.$store.state.courseInfo;
-      console.log(this.courseInfo)
-    }
+  mounted() {
+    this.getCourseInfo();
   },
-  mounted(){
-     this.getCourseInfo()
-  },
-  created(){
-    
-  }
-}
+  created() {}
+};
 </script>
 
 <style scoped>
-
+.stuSign {
+  margin: 30px auto;
+}
 </style>
