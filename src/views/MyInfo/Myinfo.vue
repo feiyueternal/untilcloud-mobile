@@ -45,8 +45,8 @@ export default {
   },
   methods: {
     Load() {
-      // var url="/userInfo"
-      var url = "/index/userInfo";
+      var url="/userInfo"
+      // var url = "/index/userInfo";
       this.$http
         .get(url)
         .then(res => {
@@ -69,8 +69,8 @@ export default {
       this.isLoading = true;
     },
     logout(){
-      // var url="/common/logout"
-      var url="/index/common/logout"
+      var url="/common/logout"
+      // var url="/index/common/logout"
         this.$http.get(url).then(res => {
           if (res.data.code === 200) {
             console.log(res.data)

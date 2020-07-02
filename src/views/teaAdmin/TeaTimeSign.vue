@@ -110,8 +110,8 @@ export default {
           this.$nextTick(() => {
             console.log(this.flag);
             if (this.flag == 0) {
-              //   var url="/class/signIn/add"
-              var url = "/index/class/signIn/add";
+                var url="/class/signIn/add"
+              // var url = "/index/class/signIn/add";
               if (this.latit == null || this.longt == null) {
                 this.$dialog
                   .alert({
@@ -179,8 +179,8 @@ export default {
       return test;
     },
     checknowSign() {
-      // var url="/class/stu/signIn/now"
-      var url = "/index/class/stu/signIn/now";
+      var url="/class/stu/signIn/now"
+      // var url = "/index/class/stu/signIn/now";
 
       var data = {
         cid: this.courseid
@@ -229,8 +229,8 @@ export default {
       
     },
     endSign() {
-      // var url="/class/signIn/end"
-      var url = "/index/class/signIn/end";
+      var url="/class/signIn/end"
+      // var url = "/index/class/signIn/end";
       var data = {
         csuid: this.csuid
       };

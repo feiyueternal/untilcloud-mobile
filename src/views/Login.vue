@@ -15,7 +15,6 @@
                 clearable
                 left-icon="friends"
                 label="账号"
-                
                 :error-message="err_user.username"
                 placeholder="请输入账号"
               />
@@ -29,7 +28,6 @@
                 required
                 clearable
                 :error-message="err_user.password"
-                
                 autocomplete
               />
             </div>
@@ -45,7 +43,6 @@
                 type="digit"
                 left-icon="phone"
                 label="手机号"
-                
                 :error-message="err_phone.phone"
                 placeholder="请输入手机号"
               />
@@ -58,7 +55,6 @@
                 placeholder="请输入验证码"
                 required
                 clearable
-                
                 :error-message="err_phone.verificationCode"
                 autocomplete
               >
@@ -114,32 +110,29 @@ export default {
       btntxt: "获取验证码", //验证码按钮文字
       show: false, //遮罩层
       nowactive: 0,
-      ss:""
+      ss: ""
     };
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     idAuth(url, data) {
- // var url = "/userInfo";
-      // var url = "/index//common/login";
+
       this.$http
-        .get(url,  { params: data })
+        .get(url, { params: data })
         .then(res => {
           if (res.data.code == 200) {
             // this.Info = res.data.data;
             console.log(res.data.data);
-            for(var i = 0; i < res.data.data.roles.length; i++) {
-              if(res.data.data.roles[i].name == 'teacher') {
+            for (var i = 0; i < res.data.data.roles.length; i++) {
+              if (res.data.data.roles[i].name == "teacher") {
                 this.isTea = true;
-                console.log(this.isTea)
+                console.log(this.isTea);
                 break;
               } else {
                 continue;
               }
             }
-          };
+          }
           this.toLogin(url, data);
         })
         .catch(err => {
@@ -163,13 +156,13 @@ export default {
         var data = {
           phone: this.phonelogin.phone,
           count: 4
-        };  
-        // var url = "/common/getVerificationCode";
-        var url="/index/common/getVerificationCode"
+        };
+        var url = "/common/getVerificationCode";
+        // var url="/index/common/getVerificationCode"
         this.$http
           .get(url, { params: data })
           .then(res => {
-            this.ss=res.data
+            this.ss = res.data;
             if (res.data.code == 200) {
               this.$notify({ type: "success", message: "发送成功" });
               this.$dialog.alert({
@@ -182,7 +175,7 @@ export default {
           })
           .catch(err => {
             console.log(err);
-            this.ss=err
+            this.ss = err;
             this.$notify({ type: "danger", message: "发送失败" });
           });
       } else {
@@ -227,7 +220,7 @@ export default {
           this.err_phone.phone = "";
           this.err_phone.verificationCode = "";
           this.flag = true;
-          resolve(true);      
+          resolve(true);
         }
       });
       return test;
@@ -244,30 +237,29 @@ export default {
           var data = {
             account: this.userlogin.username,
             password: this.userlogin.password,
-            rememberMe:false
+            rememberMe: false
           };
-          // var url="/common/login"
-          var url="/index/common/login"
+          var url = "/common/login";
+          // var url="/index/common/login"
           this.user_test();
-          if(this.flag == true){
-            this.flag=false
+          if (this.flag == true) {
+            this.flag = false;
             this.idAuth(url, data);
             // this.toLogin(url, data);
           }
-
         } else {
           var data = {
             phone: this.phonelogin.phone,
             verificationCode: this.phonelogin.verificationCode,
-            rememberMe:false
+            rememberMe: false
           };
           // var url = "http://47.98.142.113:8443/api/common/phoneLogin";
-          // var url="/common/phoneLogin"
-          var url="/index/common/phoneLogin"
+          var url = "/common/phoneLogin";
+          // var url="/index/common/phoneLogin"
           this.phone_test();
-          if(this.flag == true){
-            this.flag=false
-             this.idAuth(url, data);
+          if (this.flag == true) {
+            this.flag = false;
+            this.idAuth(url, data);
             // this.toLogin(ur, data);
           }
         }
@@ -279,17 +271,17 @@ export default {
         .get(url, { params: data })
         .then(res => {
           console.log(res);
-          this.ss=res.data
+          this.ss = res.data;
           if (res.data.code == 200) {
             this.$store.commit("login", res.data.data);
             this.$notify({ type: "success", message: "欢迎~" });
-            console.log(this.isTea)
-            if(this.isTea == true) {
-              this.$router.push({ name: "TeacherCourse" })
+            console.log(this.isTea);
+            if (this.isTea == true) {
+              this.$router.push({ name: "TeacherCourse" });
             } else {
               this.$router.push({ name: "Home" }); //占位
             }
-            
+
             this.show = false;
           } else {
             console.log(res);
@@ -299,15 +291,15 @@ export default {
         })
         .catch(err => {
           console.log(err);
-          this.ss=err
+          this.ss = err;
           this.show = false;
         });
     },
     toRegister() {
-      this.$router.push({ name: "Register" }); 
+      this.$router.push({ name: "Register" });
     },
     toForget() {
-      this.$router.push({ name: "ForgetPassword" }); 
+      this.$router.push({ name: "ForgetPassword" });
     }
   }
 };

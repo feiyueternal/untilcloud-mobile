@@ -49,8 +49,8 @@ export default {
       this.courseid = this.$store.state.courseInfo.id;
     },
     getAllSign(){
-        // var url="/class/stu/signIn/all",
-        var url="/index/class/stu/signIn/all"
+        var url="/class/stu/signIn/all"
+        // var url="/index/class/stu/signIn/all"
         var data={
             cid:this.courseid
         }

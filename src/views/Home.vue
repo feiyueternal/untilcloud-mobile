@@ -54,8 +54,8 @@ export default {
   },
   methods: {
     Load() {
-      // var url="/userInfo"
-      var url = "/index/class/stu/course/getJoin";
+      var url="/class/stu/course/getJoin"
+      // var url = "/index/class/stu/course/getJoin";
       this.$http
         .get(url)
         .then(res => {
@@ -82,7 +82,8 @@ export default {
       this.$store.commit("getCourseInfo", item);
     },
     onSearch() {
-      var url = "/index/class/stu/course/join";
+      var url = "/class/stu/course/join";
+      // var url = "/index/class/stu/course/join";
       var data = {cid: this.value};
       this.$http
         .get(url, { params: data })

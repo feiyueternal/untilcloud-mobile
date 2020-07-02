@@ -160,7 +160,8 @@ export default {
   },
   methods: {
     getGrade() {
-      var grade_url = `/index/userInfo/get/777`;
+      var grade_url = `/userInfo/get/777`;
+      // var grade_url = `/index/userInfo/get/777`;
       this.$http
         .get(grade_url)
         .then(res => {
@@ -180,7 +181,8 @@ export default {
         });
     },
     getTerm() {
-      var term_url = `/index/userInfo/get/666`;
+      var term_url = `/userInfo/get/666`;
+      // var term_url = `/index/userInfo/get/666`;
       this.$http
         .get(term_url)
         .then(res => {
@@ -206,8 +208,8 @@ export default {
       this.Info.schoolId = Id;
       this.Info.college = null;
       this.Info.major = null;
-      // var college_url = `/userInfo/school/get/${Id}`;
-      var college_url = `/index/userInfo/school/get/${Id}`;
+      var college_url = `/userInfo/school/get/${Id}`;
+      // var college_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(college_url)
         .then(res => {
@@ -231,8 +233,8 @@ export default {
       var Id = this.college_values[index].id;
       this.Info.collegeId = Id;
       this.Info.major = null;
-      // var major_url = `/userInfo/school/get/${Id}`;
-      var major_url = `/index/userInfo/school/get/${Id}`;
+      var major_url = `/userInfo/school/get/${Id}`;
+      // var major_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(major_url)
         .then(res => {
@@ -264,8 +266,8 @@ export default {
       this.showPicker5 = false;
     },
     loadSelect() {
-      // var school_url = "/userInfo/school/get";
-      var school_url = "/index/userInfo/school/get";
+      var school_url = "/userInfo/school/get";
+      // var school_url = "/index/userInfo/school/get";
       var tmp = [];
       this.$http
         .get(school_url)
@@ -287,8 +289,8 @@ export default {
       if (this.Info.schoolId) {
         setTimeout(() => {
           console.log("getcollege");
-          // var college_url = `/userInfo/school/get/${this.Info.schoolId}`;
-          var college_url = `/index/userInfo/school/get/${this.Info.schoolId}`;
+          var college_url = `/userInfo/school/get/${this.Info.schoolId}`;
+          // var college_url = `/index/userInfo/school/get/${this.Info.schoolId}`;
           this.$http
             .get(college_url)
             .then(res => {
@@ -313,8 +315,8 @@ export default {
             if (this.Info.collegeId) {
               setTimeout(() => {
                 console.log("getmajor");
-                // var major_url = `/userInfo/school/get/${this.Info.collegeId}`;
-                var major_url = `/index/userInfo/school/get/${this.Info.collegeId}`;
+                var major_url = `/userInfo/school/get/${this.Info.collegeId}`;
+                // var major_url = `/index/userInfo/school/get/${this.Info.collegeId}`;
                 this.$http
                   .get(major_url)
                   .then(res => {
@@ -348,7 +350,8 @@ export default {
       this.Info.file = file.file;
     },
     create() {
-      var url = "/index/class/course/add";
+      var url = "/class/course/add";
+      // var url = "/index/class/course/add";
       this.formdata.append("cover", this.Info.file);
       this.formdata.append("name", this.Info.name);
       this.formdata.append("grade", this.Info.grade);

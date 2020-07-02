@@ -1,6 +1,6 @@
 <template>
   <div class="stuSign">
-       <div class="spp">
+    <div class="spp">
       <span>{{minute}}:{{second}}</span>
     </div>
     <van-button :disabled="sign_btn" round type="info" @click="conSign">签到</van-button>
@@ -21,10 +21,10 @@ export default {
       longt: null,
       sign_btn: false,
       getinfo: {},
-      still_sign:true,
+      still_sign: true,
       time_min: 0,
       time_sec: 0,
-      signRe:null
+      signRe: null
     };
   },
   methods: {
@@ -85,76 +85,72 @@ export default {
       });
     },
     conSign() {
-        this.checknowSign()
-        if(this.still_sign==true){
-            setTimeout(() => {
-                this.$nextTick(() => {
-                     //   var url="/class/stu/signIn"
-      var url = "/index/class/stu/signIn";
-      if (this.latit == null || this.longt == null) {
+      this.checknowSign();
+      if (this.still_sign == true) {
+        setTimeout(() => {
+          this.$nextTick(() => {
+            var url = "/class/stu/signIn";
+            // var url = "/index/class/stu/signIn";
+            if (this.latit == null || this.longt == null) {
+              this.$dialog.alert({
+                message: "获取不到位置 无法签到"
+              });
+            } else {
+              var data = {
+                mode: "time",
+                value: "1",
+                longitude: this.longt,
+                latitude: this.latit,
+                courseSignIn: this.getinfo
+              };
+              console.log(data);
+              this.$http
+                .post(url, data)
+                .then(res => {
+                  // if (res.data.code == 200) {
+                  //   this.$notify({ type: "success", message: "签到成功" });
+                  // } else if (res.data.code == 701) {
+                  //   this.$dialog
+                  //     .alert({
+                  //       message: "请勿重复签到"
+                  //     })
+                  //     .then(() => {
+                  //       //   this.sign_btn = true;
+                  //     });
+                  // } else if (res.data.code == 702) {
+                  //   this.$dialog
+                  //     .alert({
+                  //       message: "超出签到距离，签到失败"
+                  //     })
+                  //     .then(() => {
+                  //       //   this.sign_btn = true;
+                  //     });
+                  // }
+                  this.$dialog.alert({
+                    message: res.data.data
+                  });
+                  console.log(res.data);
+                })
+                .catch(err => {
+                  console.log(err);
+                  this.$notify({ type: "danger", message: "签到失败" });
+                });
+            }
+          });
+        }, 300);
+      } else {
         this.$dialog
           .alert({
-            message: "获取不到位置 无法签到"
+            message: "签到已结束"
           })
-      } else {
-        var data = {
-          mode: "time",
-          value: "1",
-          longitude: this.longt,
-          latitude: this.latit,
-          courseSignIn: this.getinfo
-        };
-        console.log(data);
-        this.$http
-          .post(url, data)
-          .then(res => {
-            // if (res.data.code == 200) {
-            //   this.$notify({ type: "success", message: "签到成功" });
-            // } else if (res.data.code == 701) {
-            //   this.$dialog
-            //     .alert({
-            //       message: "请勿重复签到"
-            //     })
-            //     .then(() => {
-            //       //   this.sign_btn = true;
-            //     });
-            // } else if (res.data.code == 702) {
-            //   this.$dialog
-            //     .alert({
-            //       message: "超出签到距离，签到失败"
-            //     })
-            //     .then(() => {
-            //       //   this.sign_btn = true;
-            //     });
-            // }
-            this.$dialog.alert({
-                message:res.data.data
-            })
-            console.log(res.data);
-          })
-          .catch(err => {
-            console.log(err);
-            this.$notify({ type: "danger", message: "签到失败" });
+          .then(() => {
+            //   this.sign_btn = true;
           });
       }
-                })
-                
-            },300)
-        }else{
-            this.$dialog
-                .alert({
-                  message: "签到已结束"
-                })
-                .then(() => {
-                  //   this.sign_btn = true;
-                });
-        }
-     
-     
     },
     checknowSign() {
-      // var url="/class/stu/signIn/now"
-      var url = "/index/class/stu/signIn/now";
+      var url = "/class/stu/signIn/now";
+      // var url = "/index/class/stu/signIn/now";
 
       var data = {
         cid: this.courseid
@@ -166,8 +162,8 @@ export default {
         .then(res => {
           if (res.data.code == 200) {
             if (res.data.data != null) {
-                this.signRe=null
-              this.still_sign=false
+              this.signRe = null;
+              this.still_sign = false;
               this.signRe = res.data.data;
             }
             console.log(res.data.data);
@@ -192,11 +188,9 @@ export default {
           _this.time_sec -= 1;
         }
         if (_this.time_min == 0 && _this.time_sec == 0) {
-        _this.sign_btn = true;
-      }
+          _this.sign_btn = true;
+        }
       }, 1000);
-
-      
     },
     countTime() {
       this.checknowSign();
@@ -228,10 +222,10 @@ export default {
     },
     num: function(n) {
       return n < 10 ? "0" + n : "" + n;
-    },
+    }
   },
   watch: {
-      second: {
+    second: {
       handler(newVal) {
         this.num(newVal);
       }
@@ -247,10 +241,10 @@ export default {
     setTimeout(() => {
       this.$nextTick(() => {
         this.getLocation();
-        
+
         this.getCourseId();
         this.sign_btn = false;
-        this.countTime()
+        this.countTime();
       });
     }, 300);
   },
@@ -259,7 +253,7 @@ export default {
     // this.getinfo = this.$route.params.courseinfo;
   },
   computed: {
-       second: function() {
+    second: function() {
       return this.num(this.time_sec);
     },
     minute: function() {
