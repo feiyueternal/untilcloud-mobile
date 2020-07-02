@@ -103,7 +103,8 @@ export default {
       showPicker2: false,
       showPicker3: false,
       isLoading: true,
-      Idenid: 5,
+      Idenid: '',
+      isTea: '',
       school_values: [],
       school_select: [],
       college_values: [],
@@ -122,8 +123,24 @@ export default {
           if (res.data.code == 200) {
             this.Info = res.data.data;
             console.log(this.Info);
-            this.Idenid = res.data.data.roles[0].id;
-            this.Idenid = this.Idenid + "";
+            // this.Idenid = res.data.data.roles[0].id;
+            // this.Idenid = this.Idenid + "";
+            for(var i = 0; i < res.data.data.roles.length; i++) {
+              if(res.data.data.roles[i].name == 'teacher') {
+                this.isTea = true;
+                // console.log(this.isTea)
+                break;
+              } else {
+                continue;
+              }
+            }
+              if(this.isTea == true) {
+                this.Idenid = 3;
+                this.Idenid = this.Idenid + "";
+              } else {
+                this.Idenid = 5;
+                this.Idenid = this.Idenid + "";
+              }
           }
         })
         .catch(err => {
@@ -313,6 +330,9 @@ export default {
           if (res.data.code == 200) {
             this.$notify({ type: "success", message: "保存信息成功" });
             this.Load();
+            if(this.Idenid == 5) {
+              this.$router.push({ name: "Home" });
+            }
           }
         })
         .catch(err => {

@@ -70,7 +70,7 @@ export default {
     },
     onClick(item) {
       // console.log(item)
-      this.$store.commit('getCourseInfo', item)
+      this.$store.commit('getCourseInfo', item);
     }
   },
   mounted() {
