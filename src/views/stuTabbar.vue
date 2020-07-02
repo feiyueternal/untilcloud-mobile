@@ -40,8 +40,8 @@ export default {
   },
   methods: {
     onClickLeft() {
-      //  this.$router.push({ name: "Home" });
-      history.back()
+       this.$router.push({ name: "Home" });
+      // history.back()
     }
   },
 }

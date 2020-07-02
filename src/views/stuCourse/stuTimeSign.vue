@@ -161,10 +161,13 @@ export default {
         .get(url, { params: data })
         .then(res => {
           if (res.data.code == 200) {
+            
             if (res.data.data != null) {
               this.signRe = null;
               this.still_sign = false;
               this.signRe = res.data.data;
+            }else{
+              this.still_sign=true
             }
             console.log(res.data.data);
           }
