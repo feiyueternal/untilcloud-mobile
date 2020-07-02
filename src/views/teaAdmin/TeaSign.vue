@@ -1,5 +1,6 @@
 <template>
   <div class="TeaSign">
+    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
       <van-col span="4">
       </van-col>
       <van-col span="8">
@@ -32,6 +33,10 @@ export default {
     },
     openHistory(){
       this.$router.push({name:"TeaHistorySign"})
+    },
+    onClickLeft() {
+      this.$router.push({ name: "TeacherCourse" });
+      // history.back()
     }
   },
   mounted(){

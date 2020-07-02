@@ -1,6 +1,7 @@
 <template>
 <div>
   <div class="Teatmp">
+    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
     <van-list
       v-model="loading"
       :finished="finished"
@@ -47,6 +48,9 @@ export default {
   methods:{
      getCourseInfo() {
       this.courseid = this.$store.state.courseInfo.id;
+    },
+    onClickLeft(){
+      this.$router.push({name:'stuSign'})
     },
     getAllSign(){
         var url="/class/stu/signIn/all"

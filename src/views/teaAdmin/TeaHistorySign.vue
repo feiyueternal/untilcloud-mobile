@@ -1,5 +1,6 @@
 <template>
   <div>
+    <van-nav-bar title="发起签到" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="Teatmp">
       <van-list
         v-model="loading"
@@ -40,6 +41,9 @@ export default {
   methods: {
     getCourseInfo() {
       this.courseid = this.$store.state.courseInfo.id;
+    },
+     onClickLeft(){
+        this.$router.push({ name: "Teatmp" });
     },
     getAllSign() {
       var url = "/class/signIn/all";

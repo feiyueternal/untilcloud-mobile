@@ -1,5 +1,6 @@
 <template>
   <div class="stuSign">
+    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="spp">
       <span>{{minute}}:{{second}}</span>
     </div>
@@ -34,6 +35,9 @@ export default {
       //   this.getinfo=this.$router.params.courseinfo
       console.log(this.getinfo);
       console.log(typeof this.getinfo);
+    },
+    onClickLeft(){
+      this.$router.push({name:'stuSign'})
     },
     getLocation() {
       // 从高德地图api获取浏览器定位

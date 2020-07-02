@@ -1,5 +1,6 @@
 <template>
   <div class="TeaSign">
+     <van-nav-bar title="发起签到" left-text="返回" left-arrow @click-left="onClickLeft" />
     <van-cell-group class="field">
       <van-field
         v-model.trim="sign_time"
@@ -48,6 +49,9 @@ export default {
       var info = this.$store.state.courseInfo;
       this.courseid = info.id;
       // console.log(this.courseid);
+    },
+    onClickLeft(){
+        this.$router.push({ name: "Teatmp" });
     },
     getLocation() {
       // 从高德地图api获取浏览器定位

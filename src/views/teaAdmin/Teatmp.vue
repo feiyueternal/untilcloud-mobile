@@ -1,6 +1,6 @@
 <template>
 <div>
-<!-- <van-nav-bar title="发起签到" left-text="返回" left-arrow @click-left="onClickLeft" /> -->
+<van-nav-bar title="发起签到" left-text="返回" left-arrow @click-left="onClickLeft" />
   <div class="Teatmp">
        <van-col span="4">
       </van-col>

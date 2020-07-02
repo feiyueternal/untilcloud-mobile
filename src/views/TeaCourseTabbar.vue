@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
+    <!-- <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" /> -->
     <van-tabbar v-model="active" active-color="#07c160">
       <van-tabbar-item
       icon="manager"

@@ -1,5 +1,6 @@
 <template>
   <div class="stuSign">
+    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
     <van-col span="4"></van-col>
     <van-col span="8">
       <van-button plain icon="passed" type="warning" @click="gotoSign">参与签到</van-button>
@@ -23,6 +24,9 @@ export default {
     getCourseInfo() {
       this.courseid = this.$store.state.courseInfo.id;
       console.log(this.courseid);
+    },
+    onClickLeft(){
+      this.$router.push({name:'Home'})
     },
     goHistory(){
       this.$router.push({name:"stuHistorySign"})
