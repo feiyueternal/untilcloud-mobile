@@ -7,6 +7,7 @@ import 'vant/lib/index.css';
 import less from 'less'
 import axios from 'axios'
 import Router from 'vue-router';
+import permit from './utils/permission' 
 
 Vue.config.productionTip = false
 Vue.use(Vant)
@@ -20,6 +21,9 @@ const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
+document.addEventListener('deviceready',function(){
+  permit()
+})
 
 new Vue({
   router,

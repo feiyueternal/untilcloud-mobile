@@ -1,7 +1,8 @@
 <template>
 <div>
+  <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
   <div class="Teatmp">
-    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
+    
     <van-list
       v-model="loading"
       :finished="finished"
@@ -53,8 +54,8 @@ export default {
       this.$router.push({name:'stuSign'})
     },
     getAllSign(){
-        var url="/class/stu/signIn/all"
-        // var url="/index/class/stu/signIn/all"
+        // var url="/class/stu/signIn/all"
+        var url="/index/class/stu/signIn/all"
         var data={
             cid:this.courseid
         }

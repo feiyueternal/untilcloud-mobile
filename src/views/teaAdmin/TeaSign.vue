@@ -1,6 +1,8 @@
 <template>
+<div>
+  <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
   <div class="TeaSign">
-    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
+    
       <van-col span="4">
       </van-col>
       <van-col span="8">
@@ -10,6 +12,7 @@
     <van-button round icon="bulb-o" type="warning"  @click="openSign">发起签到</van-button>
       </van-col>
   </div>
+</div>
 </template>
 
 <script>

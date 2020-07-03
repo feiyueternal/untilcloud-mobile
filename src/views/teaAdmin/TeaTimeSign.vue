@@ -1,6 +1,8 @@
 <template>
+<div>
+<van-nav-bar title="发起签到" left-text="返回" left-arrow @click-left="onClickLeft" />
   <div class="TeaSign">
-     <van-nav-bar title="发起签到" left-text="返回" left-arrow @click-left="onClickLeft" />
+     
     <van-cell-group class="field">
       <van-field
         v-model.trim="sign_time"
@@ -20,6 +22,7 @@
     <van-button :disabled="end_btn" round type="info" @click="endSign">结束签到</van-button>
     <van-dialog id="van-dialog" />
   </div>
+</div>
 </template>
 
 <script>
@@ -114,8 +117,8 @@ export default {
           this.$nextTick(() => {
             console.log(this.flag);
             if (this.flag == 0) {
-                var url="/class/signIn/add"
-              // var url = "/index/class/signIn/add";
+                // var url="/class/signIn/add"
+              var url = "/index/class/signIn/add";
               if (this.latit == null || this.longt == null) {
                 this.$dialog
                   .alert({
@@ -183,8 +186,8 @@ export default {
       return test;
     },
     checknowSign() {
-      var url="/class/stu/signIn/now"
-      // var url = "/index/class/stu/signIn/now";
+      // var url="/class/stu/signIn/now"
+      var url = "/index/class/stu/signIn/now";
 
       var data = {
         cid: this.courseid
@@ -233,8 +236,8 @@ export default {
       
     },
     endSign() {
-      var url="/class/signIn/end"
-      // var url = "/index/class/signIn/end";
+      // var url="/class/signIn/end"
+      var url = "/index/class/signIn/end";
       var data = {
         csuid: this.csuid
       };

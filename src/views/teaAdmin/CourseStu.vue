@@ -1,6 +1,6 @@
 <template>
   <div class="CourseStu">
-    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="" left-text="??" left-arrow @click-left="onClickLeft" />
   </div>
 </template>
 

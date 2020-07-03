@@ -1,6 +1,7 @@
 <template>
-  <div class="stuSign">
+  <div>
     <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
+    <div class="stuSign">
     <van-col span="4"></van-col>
     <van-col span="8">
       <van-button plain icon="passed" type="warning" @click="gotoSign">参与签到</van-button>
@@ -8,6 +9,7 @@
     <van-col span="8">
       <van-button plain icon="underway-o" type="info" @click="goHistory">历史签到</van-button>
     </van-col>
+  </div>
   </div>
 </template>
 
@@ -32,8 +34,8 @@ export default {
       this.$router.push({name:"stuHistorySign"})
     },
     gotoSign() {
-      var url="/class/stu/signIn/now"
-      // var url = "/index/class/stu/signIn/now";
+      // var url="/class/stu/signIn/now"
+      var url = "/index/class/stu/signIn/now";
 
       var data = {
         cid: this.courseid

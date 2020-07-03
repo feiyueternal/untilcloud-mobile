@@ -1,6 +1,8 @@
 <template>
+<div>
+ <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
   <div class="stuSign">
-    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
+   
     <div class="spp">
       <span>{{minute}}:{{second}}</span>
     </div>
@@ -8,6 +10,7 @@
 
     <van-dialog id="van-dialog" />
   </div>
+</div>
 </template>
 
 <script>
@@ -34,7 +37,7 @@ export default {
       this.courseid = info.id;
       //   this.getinfo=this.$router.params.courseinfo
       console.log(this.getinfo);
-      console.log(typeof this.getinfo);
+      console.log(typeof(this.getinfo));
     },
     onClickLeft(){
       this.$router.push({name:'stuSign'})
@@ -58,6 +61,7 @@ export default {
           // data是具体的定位信息
           that.latit = data.position.lat;
           that.longt = data.position.lng;
+          console.log(that.latit,that.longt)
         }
 
         function onError() {
@@ -93,8 +97,9 @@ export default {
       if (this.still_sign == true) {
         setTimeout(() => {
           this.$nextTick(() => {
-            var url = "/class/stu/signIn";
-            // var url = "/index/class/stu/signIn";
+            // var url = "/class/stu/signIn";
+            var url = "/index/class/stu/signIn";
+            console.log(this.latit,this.longt)
             if (this.latit == null || this.longt == null) {
               this.$dialog.alert({
                 message: "获取不到位置 无法签到"
@@ -131,7 +136,7 @@ export default {
                   //     });
                   // }
                   this.$dialog.alert({
-                    message: res.data.data
+                    message: res.data.message
                   });
                   console.log(res.data);
                 })
@@ -153,8 +158,8 @@ export default {
       }
     },
     checknowSign() {
-      var url = "/class/stu/signIn/now";
-      // var url = "/index/class/stu/signIn/now";
+      // var url = "/class/stu/signIn/now";
+      var url = "/index/class/stu/signIn/now";
 
       var data = {
         cid: this.courseid
@@ -168,10 +173,10 @@ export default {
             
             if (res.data.data != null) {
               this.signRe = null;
-              this.still_sign = false;
+              this.still_sign = true;
               this.signRe = res.data.data;
             }else{
-              this.still_sign=true
+              this.still_sign=false
             }
             console.log(res.data.data);
           }
@@ -248,12 +253,12 @@ export default {
     setTimeout(() => {
       this.$nextTick(() => {
         this.getLocation();
-
-        this.getCourseId();
-        this.sign_btn = false;
+        this.getCourseId(); 
         this.countTime();
+         this.sign_btn = false;
       });
     }, 300);
+   
   },
   created() {
     this.getLocation();
