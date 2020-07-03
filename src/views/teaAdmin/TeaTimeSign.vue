@@ -76,12 +76,20 @@ export default {
           console.log(data);
           that.latit = data.position.lat;
           that.longt = data.position.lng;
+          that.start_btn = false;
           console.log(that.longt);
         }
 
         function onError() {
           // 定位出错
           that.getLatLngLocation();
+          this.$dialog
+                  .alert({
+                    message: "定位出错了"
+                  })
+                  .then(() => {
+                    this.start_btn = true;
+                  });
         }
       });
     },
@@ -117,8 +125,8 @@ export default {
           this.$nextTick(() => {
             console.log(this.flag);
             if (this.flag == 0) {
-                // var url="/class/signIn/add"
-              var url = "/index/class/signIn/add";
+                var url="/class/signIn/add"
+              // var url = "/index/class/signIn/add";
               if (this.latit == null || this.longt == null) {
                 this.$dialog
                   .alert({
@@ -174,8 +182,8 @@ export default {
     user_test() {
       this.time_flag = false;
       let test = new Promise((resolve, reject) => {
-        if (this.sign_time == "") {
-          this.err = "请输入签到时长";
+        if (this.sign_time == ""|| this.sign_time==0) {
+          this.err = "请输入签到时长,不可以是0噢";
           resolve(false);
         } else {
           this.err = "";
@@ -186,8 +194,8 @@ export default {
       return test;
     },
     checknowSign() {
-      // var url="/class/stu/signIn/now"
-      var url = "/index/class/stu/signIn/now";
+      var url="/class/stu/signIn/now"
+      // var url = "/index/class/stu/signIn/now";
 
       var data = {
         cid: this.courseid
@@ -236,8 +244,8 @@ export default {
       
     },
     endSign() {
-      // var url="/class/signIn/end"
-      var url = "/index/class/signIn/end";
+      var url="/class/signIn/end"
+      // var url = "/index/class/signIn/end";
       var data = {
         csuid: this.csuid
       };
@@ -308,7 +316,6 @@ export default {
       this.$nextTick(() => {
         this.getLocation();
         this.getCourseId();
-        this.start_btn = false;
         this.countTime();
       });
     }, 300);

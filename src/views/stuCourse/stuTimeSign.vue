@@ -97,8 +97,8 @@ export default {
       if (this.still_sign == true) {
         setTimeout(() => {
           this.$nextTick(() => {
-            // var url = "/class/stu/signIn";
-            var url = "/index/class/stu/signIn";
+            var url = "/class/stu/signIn";
+            // var url = "/index/class/stu/signIn";
             console.log(this.latit,this.longt)
             if (this.latit == null || this.longt == null) {
               this.$dialog.alert({
@@ -158,8 +158,8 @@ export default {
       }
     },
     checknowSign() {
-      // var url = "/class/stu/signIn/now";
-      var url = "/index/class/stu/signIn/now";
+      var url = "/class/stu/signIn/now";
+      // var url = "/index/class/stu/signIn/now";
 
       var data = {
         cid: this.courseid

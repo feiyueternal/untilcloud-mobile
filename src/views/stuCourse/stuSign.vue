@@ -34,8 +34,8 @@ export default {
       this.$router.push({name:"stuHistorySign"})
     },
     gotoSign() {
-      // var url="/class/stu/signIn/now"
-      var url = "/index/class/stu/signIn/now";
+      var url="/class/stu/signIn/now"
+      // var url = "/index/class/stu/signIn/now";
 
       var data = {
         cid: this.courseid

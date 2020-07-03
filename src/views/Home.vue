@@ -54,8 +54,8 @@ export default {
   },
   methods: {
     Load() {
-      // var url="/class/stu/course/getJoin";
-      var url = "/index/class/stu/course/getJoin";
+      var url="/class/stu/course/getJoin";
+      // var url = "/index/class/stu/course/getJoin";
       this.$http
         .get(url)
         .then(res => {
