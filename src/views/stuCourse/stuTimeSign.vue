@@ -24,7 +24,7 @@ export default {
       latit: null,
       longt: null,
       sign_btn: true,
-      getinfo: {},
+      getinfo: null,
       still_sign: true,
       time_min: 0,
       time_sec: 0,
@@ -102,7 +102,11 @@ export default {
     },
     conSign() {
       this.checknowSign();
-      if (this.still_sign == true) {
+      this.$nextTick(() =>{
+        if(this.getinfo==null){
+          this.$notify({ type: "warning", message: "getinfo空" });
+        }
+        if (this.still_sign == true) {
         setTimeout(() => {
           this.$nextTick(() => {
             var url = "/class/stu/signIn";
@@ -164,6 +168,8 @@ export default {
             //   this.sign_btn = true;
           });
       }
+      })
+      
     },
     checknowSign() {
       var url = "/class/stu/signIn/now";
@@ -178,11 +184,12 @@ export default {
         .get(url, { params: data })
         .then(res => {
           if (res.data.code == 200) {
-            
+            this.signRe = null;
             if (res.data.data != null) {
-              this.signRe = null;
+              
               this.still_sign = true;
               this.signRe = res.data.data;
+              this.getinfo=res.data.data
             }else{
               this.still_sign=false
             }
