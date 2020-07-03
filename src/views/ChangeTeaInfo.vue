@@ -153,8 +153,8 @@ export default {
     },
     afterRead(file) {
       console.log(file);
-      // var url = "/userInfo/cover";
-      var url = "/index/userInfo/cover";
+      var url = "/userInfo/cover";
+      // var url = "/index/userInfo/cover";
       var data = new window.FormData();
       data.append("file", file.file);
       console.log(data)
@@ -179,8 +179,8 @@ export default {
       this.Info.schoolId = Id;
       this.Info.college = null;
       this.Info.major = null;
-      // var college_url = `/userInfo/school/get/${Id}`;
-      var college_url = `/index/userInfo/school/get/${Id}`;
+      var college_url = `/userInfo/school/get/${Id}`;
+      // var college_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(college_url)
         .then(res => {
@@ -204,8 +204,8 @@ export default {
       var Id = this.college_values[index].id;
       this.Info.collegeId = Id;
       this.Info.major = null;
-      // var major_url = `/userInfo/school/get/${Id}`;
-      var major_url = `/index/userInfo/school/get/${Id}`;
+      var major_url = `/userInfo/school/get/${Id}`;
+      // var major_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(major_url)
         .then(res => {
@@ -229,8 +229,8 @@ export default {
       this.showPicker3 = false;
     },
     loadSelect() {
-      // var school_url = "/userInfo/school/get";
-      var school_url="/index/userInfo/school/get"
+      var school_url = "/userInfo/school/get";
+      // var school_url="/index/userInfo/school/get"
       var tmp = [];
       this.$http
         .get(school_url)
@@ -252,8 +252,8 @@ export default {
       if (this.Info.schoolId) {
         setTimeout(() => {
           console.log("getcollege");
-          // var college_url = `/userInfo/school/get/${this.Info.schoolId}`;
-          var college_url = `/index/userInfo/school/get/${this.Info.schoolId}`;
+          var college_url = `/userInfo/school/get/${this.Info.schoolId}`;
+          // var college_url = `/index/userInfo/school/get/${this.Info.schoolId}`;
           this.$http
             .get(college_url)
             .then(res => {
@@ -278,8 +278,8 @@ export default {
             if (this.Info.collegeId) {
               setTimeout(() => {
                 console.log("getmajor");
-                // var major_url = `/userInfo/school/get/${this.Info.collegeId}`;
-                var major_url = `/index/userInfo/school/get/${this.Info.collegeId}`;
+                var major_url = `/userInfo/school/get/${this.Info.collegeId}`;
+                // var major_url = `/index/userInfo/school/get/${this.Info.collegeId}`;
                 this.$http
                   .get(major_url)
                   .then(res => {
@@ -304,8 +304,8 @@ export default {
       }
     },
     Save() {
-      // var url = "/userInfo";
-      var url = "/index/userInfo";
+      var url = "/userInfo";
+      // var url = "/index/userInfo";
       var NumofId = Number(this.Idenid);
       var data = {
         id: this.Info.id,

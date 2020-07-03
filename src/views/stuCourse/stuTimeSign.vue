@@ -23,8 +23,8 @@ export default {
       courseid: "",
       latit: null,
       longt: null,
-      sign_btn: false,
-      getinfo: {},
+      sign_btn: true,
+      getinfo: null,
       still_sign: true,
       time_min: 0,
       time_sec: 0,
@@ -61,12 +61,20 @@ export default {
           // data是具体的定位信息
           that.latit = data.position.lat;
           that.longt = data.position.lng;
+          that.sign_btn = false;
           console.log(that.latit,that.longt)
         }
 
         function onError() {
           // 定位出错
           that.getLatLngLocation();
+          this.$dialog
+                  .alert({
+                    message: "定位出错了"
+                  })
+                  .then(() => {
+                    this.start_btn = true;
+                  });
         }
       });
     },
@@ -94,11 +102,15 @@ export default {
     },
     conSign() {
       this.checknowSign();
-      if (this.still_sign == true) {
+      this.$nextTick(() =>{
+        if(this.getinfo==null){
+          this.$notify({ type: "warning", message: "getinfo空" });
+        }
+        if (this.still_sign == true) {
         setTimeout(() => {
           this.$nextTick(() => {
-            // var url = "/class/stu/signIn";
-            var url = "/index/class/stu/signIn";
+            var url = "/class/stu/signIn";
+            // var url = "/index/class/stu/signIn";
             console.log(this.latit,this.longt)
             if (this.latit == null || this.longt == null) {
               this.$dialog.alert({
@@ -156,10 +168,12 @@ export default {
             //   this.sign_btn = true;
           });
       }
+      })
+      
     },
     checknowSign() {
-      // var url = "/class/stu/signIn/now";
-      var url = "/index/class/stu/signIn/now";
+      var url = "/class/stu/signIn/now";
+      // var url = "/index/class/stu/signIn/now";
 
       var data = {
         cid: this.courseid
@@ -170,11 +184,12 @@ export default {
         .get(url, { params: data })
         .then(res => {
           if (res.data.code == 200) {
-            
+            this.signRe = null;
             if (res.data.data != null) {
-              this.signRe = null;
+              
               this.still_sign = true;
               this.signRe = res.data.data;
+              this.getinfo=res.data.data
             }else{
               this.still_sign=false
             }
@@ -255,7 +270,6 @@ export default {
         this.getLocation();
         this.getCourseId(); 
         this.countTime();
-         this.sign_btn = false;
       });
     }, 300);
    

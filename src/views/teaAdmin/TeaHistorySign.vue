@@ -46,8 +46,8 @@ export default {
         this.$router.push({ name: "Teatmp" });
     },
     getAllSign() {
-      // var url = "/class/signIn/all";
-      var url="/index/class/signIn/all"
+      var url = "/class/signIn/all";
+      // var url="/index/class/signIn/all"
       var data = {
         cid: this.courseid
       };
