@@ -23,7 +23,7 @@ export default {
       courseid: "",
       latit: null,
       longt: null,
-      sign_btn: false,
+      sign_btn: true,
       getinfo: {},
       still_sign: true,
       time_min: 0,
@@ -61,12 +61,20 @@ export default {
           // data是具体的定位信息
           that.latit = data.position.lat;
           that.longt = data.position.lng;
+          that.sign_btn = false;
           console.log(that.latit,that.longt)
         }
 
         function onError() {
           // 定位出错
           that.getLatLngLocation();
+          this.$dialog
+                  .alert({
+                    message: "定位出错了"
+                  })
+                  .then(() => {
+                    this.start_btn = true;
+                  });
         }
       });
     },
@@ -255,7 +263,6 @@ export default {
         this.getLocation();
         this.getCourseId(); 
         this.countTime();
-         this.sign_btn = false;
       });
     }, 300);
    

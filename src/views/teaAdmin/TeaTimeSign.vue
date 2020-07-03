@@ -36,7 +36,7 @@ export default {
       latit: null,
       longt: null,
       sign_time: null,
-      start_btn: false,
+      start_btn: true,
       time_min: 0,
       time_sec: 0,
       end_btn: true,
@@ -244,7 +244,9 @@ export default {
       
     },
     endSign() {
-      var url="/class/signIn/end"
+      this.checknowSign()
+      setTimeout(() => {
+        var url="/class/signIn/end"
       // var url = "/index/class/signIn/end";
       var data = {
         csuid: this.csuid
@@ -255,7 +257,7 @@ export default {
         .then(res => {
           if (res.data.code == 200) {
             this.timer(0, 0);
-            this.$notify({ type: "success", message: "结束签到" });
+            this.$notify({ type: "success", message: "结束签到成功" });
           } else {
             this.$notify({ type: "danger", message: "结束签到失败" });
           }
@@ -263,8 +265,10 @@ export default {
         })
         .catch(err => {
           console.log(err);
-          this.$notify({ type: "danger", message: "结束签到失败" });
+          this.$notify({ type: "danger", message: "结束签到出错" });
         });
+      })
+      
     },
     num: function(n) {
       return n < 10 ? "0" + n : "" + n;
