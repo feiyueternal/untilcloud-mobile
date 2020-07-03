@@ -82,8 +82,8 @@ export default {
       this.$store.commit("getCourseInfo", item);
     },
     onSearch() {
-      var url = `/index/class/stu/course/get/${this.value}`
-      // var url = "/class/stu/course/get/${this.value}";
+      // var url = `/index/class/stu/course/get/${this.value}`
+      var url = `/class/stu/course/get/${this.value}`;
       
       // var data = {cid: this.value};
       this.$http
