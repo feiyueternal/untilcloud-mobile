@@ -2,120 +2,159 @@
   <div class="courseEdit">
     <van-nav-bar title left-text="返回" left-arrow @click-left="onClickLeft" />
     <form>
-       <van-uploader
-        :after-read="afterRead"
-        upload-text="上传头像"
-        max-size="1*1024*1024"
-        result-type="file"
-      >
-        <van-image round width="5rem" height="5rem" :src="courseInfo.cover">
-          <template v-slot:error>加载失败</template>
-        </van-image>
-      </van-uploader>
+      <van-row>
+        <van-col offset="6" span="12">
+          
+          <!-- <van-uploader
+            :after-read="afterRead"
+            upload-text="上传头像"
+            max-size="1*1024*1024"
+            result-type="file"
+          >
+            <van-image width="7rem" height="7rem" :src="courseInfo.cover">
+              <template v-slot:error>加载失败</template>
+            </van-image>
+          </van-uploader> -->
 
-      <van-field label="ID" v-model="courseInfo.id" disabled></van-field>
-      <van-field label="课程" v-model="courseInfo.name"></van-field>
+          <van-image width="10rem" height="10rem" :src="courseInfo.qrcode">
+              <template v-slot:error>加载失败</template>
+            </van-image>
+        </van-col>
+        
+      </van-row>
 
-      <van-field
-        readonly
-        clickable
-        name="picker"
-        :value="courseInfo.grade"
-        label="选择年级"
-        placeholder="点击选择"
-        @click="showPicker4 = true"
-      />
-      <van-popup v-model="showPicker4" position="bottom">
-        <van-picker
-          show-toolbar
-          :columns="grade_select"
-          @confirm="onConfirm4"
-          @cancel="showPicker4 = false"
-        />
-      </van-popup>
+      <van-row>
+        <van-col span="12">
+          <van-field label="ID：" v-model="courseInfo.id" disabled></van-field>
+        </van-col>
+        <van-col offset="0" span="12">
+          <van-field label="课程：" v-model="courseInfo.name"></van-field>
+        </van-col>
+      </van-row>
 
-      <van-field
-        readonly
-        clickable
-        name="picker"
-        :value="courseInfo.semester"
-        label="选择学期"
-        placeholder="点击选择"
-        @click="showPicker5 = true"
-      />
-      <van-popup v-model="showPicker5" position="bottom">
-        <van-picker
-          show-toolbar
-          :columns="term_select"
-          @confirm="onConfirm5"
-          @cancel="showPicker5 = false"
-        />
-      </van-popup>
+      <van-row>
+        <van-col span="12">
+          <van-field
+            readonly
+            clickable
+            name="picker"
+            :value="courseInfo.grade"
+            label="选择年级："
+            placeholder="点击选择"
+            @click="showPicker4 = true"
+          />
+          <van-popup v-model="showPicker4" position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="grade_select"
+              @confirm="onConfirm4"
+              @cancel="showPicker4 = false"
+            />
+          </van-popup>
+        </van-col>
+        <van-col span="12">
+          <van-field
+            readonly
+            clickable
+            name="picker"
+            :value="courseInfo.semester"
+            label="选择学期："
+            placeholder="点击选择"
+            @click="showPicker5 = true"
+          />
+          <van-popup v-model="showPicker5" position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="term_select"
+              @confirm="onConfirm5"
+              @cancel="showPicker5 = false"
+            />
+          </van-popup>
+        </van-col>
+      </van-row>
 
-       <van-field
-        readonly
-        clickable
-        name="picker"
-        :value="courseInfo.school"
-        label="选择学校"
-        placeholder="点击选择"
-        @click="showPicker1 = true"
-      />
-      <van-popup v-model="showPicker1" position="bottom">
-        <van-picker
-          show-toolbar
-          :columns="school_select"
-          @confirm="onConfirm1"
-          @cancel="showPicker1 = false"
-        />
-      </van-popup>
+      <van-row>
+        <van-col span="12">
+          <van-field
+            readonly
+            clickable
+            name="picker"
+            :value="courseInfo.school"
+            label="选择学校："
+            placeholder="点击选择"
+            @click="showPicker1 = true"
+          />
+          <van-popup v-model="showPicker1" position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="school_select"
+              @confirm="onConfirm1"
+              @cancel="showPicker1 = false"
+            />
+          </van-popup>
+        </van-col>
+        <van-col span="12">
+          <van-field
+            readonly
+            clickable
+            name="picker"
+            :value="courseInfo.college"
+            label="选择学院："
+            placeholder="点击选择"
+            @click="showPicker2 = true"
+          />
+          <van-popup v-model="showPicker2" position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="college_select"
+              @confirm="onConfirm2"
+              @cancel="showPicker2 = false"
+            />
+          </van-popup>
+        </van-col>
+      </van-row>
 
-       <van-field
-        readonly
-        clickable
-        name="picker"
-        :value="courseInfo.college"
-        label="选择学院"
-        placeholder="点击选择"
-        @click="showPicker2 = true"
-      />
-      <van-popup v-model="showPicker2" position="bottom">
-        <van-picker
-          show-toolbar
-          :columns="college_select"
-          @confirm="onConfirm2"
-          @cancel="showPicker2 = false"
-        />
-      </van-popup>
+      <van-row>
+        <van-col span="12">
+          <van-field
+            readonly
+            clickable
+            name="picker"
+            :value="courseInfo.major"
+            label="选择专业："
+            placeholder="点击选择"
+            @click="showPicker3 = true"
+          />
+          <van-popup v-model="showPicker3" position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="major_select"
+              @confirm="onConfirm3"
+              @cancel="showPicker3 = false"
+            />
+          </van-popup>
+        </van-col>
+        <van-col span="12">
+          <van-field label="老师：" v-model="courseInfo.teacher"></van-field>
+        </van-col>
+      </van-row>
 
-       <van-field
-        readonly
-        clickable
-        name="picker"
-        :value="courseInfo.major"
-        label="选择专业"
-        placeholder="点击选择"
-        @click="showPicker3 = true"
-      />
-      <van-popup v-model="showPicker3" position="bottom">
-        <van-picker
-          show-toolbar
-          :columns="major_select"
-          @confirm="onConfirm3"
-          @cancel="showPicker3 = false"
-        />
-      </van-popup>
+      <van-row>
+        <van-col span="12">
+          <van-field label="学习要求：" v-model="courseInfo.learnRequire"></van-field>
+        </van-col>
+        <van-col span="12">
+          <van-field label="教学计划：" v-model="courseInfo.teachProgress"></van-field>
+        </van-col>
+      </van-row>
 
-       <van-field label="老师" v-model="courseInfo.teacher"></van-field>
-      <van-field label="学习要求" v-model="courseInfo.learnRequire"></van-field>
-      <van-field label="教学计划" v-model="courseInfo.teachProgress"></van-field>
-      <van-field label="考试安排" v-model="courseInfo.examArrange"></van-field>
+      <van-field label="考试安排：" v-model="courseInfo.examArrange"></van-field>
     </form>
-     <van-row>
-      <van-col span="8">
+    <van-row>
+      <van-col offset="4" span="6">
         <van-button @click="editCourse()" type="primary" size="large">修改课程</van-button>
       </van-col>
-      <van-col offset="8" span="8">
+      <van-col offset="4" span="6">
         <van-button @click="delCourse()" type="danger" size="large">删除课程</van-button>
       </van-col>
     </van-row>
@@ -151,9 +190,9 @@ export default {
     onClickLeft() {
       this.$router.push({ name: "TeacherCourse" });
     },
-     editCourse() {
-      // var url = "/index/class/course/edit";
-      var url = "/class/course/edit";
+    editCourse() {
+      var url = "/index/class/course/edit";
+      // var url = "/class/course/edit";
       var data = {
         id: this.courseInfo.id,
         name: this.courseInfo.name,
@@ -185,13 +224,13 @@ export default {
           this.$notify({ type: "danger", message: "编辑失败" });
         });
     },
-     delCourse() {
-      // var url = "/index/class/course/delete";
-      var url = "/class/course/delete";
+    delCourse() {
+      var url = "/index/class/course/delete";
+      // var url = "/class/course/delete";
       var data = {
         cid: this.courseInfo.id
       };
-      console.log(data)
+      console.log(data);
       this.$http
         .get(url, { params: data })
         .then(res => {
@@ -208,15 +247,15 @@ export default {
           this.$notify({ type: "danger", message: "删除失败" });
         });
     },
-     onConfirm1(value, index) {
+    onConfirm1(value, index) {
       this.courseInfo.school = value;
       this.showPicker1 = false;
       var Id = this.school_values[index].id;
       this.courseInfo.schoolId = Id;
       this.courseInfo.college = null;
       this.courseInfo.major = null;
-      var college_url = `/userInfo/school/get/${Id}`;
-      // var college_url = `/index/userInfo/school/get/${Id}`;
+      // var college_url = `/userInfo/school/get/${Id}`;
+      var college_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(college_url)
         .then(res => {
@@ -240,8 +279,8 @@ export default {
       var Id = this.college_values[index].id;
       this.courseInfo.collegeId = Id;
       this.courseInfo.major = null;
-      var major_url = `/userInfo/school/get/${Id}`;
-      // var major_url = `/index/userInfo/school/get/${Id}`;
+      // var major_url = `/userInfo/school/get/${Id}`;
+      var major_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(major_url)
         .then(res => {
@@ -272,9 +311,9 @@ export default {
       this.courseInfo.semester = value;
       this.showPicker5 = false;
     },
-     getGrade() {
-      // var grade_url = `/index/userInfo/get/777`;
-      var grade_url = `/userInfo/get/777`;
+    getGrade() {
+      var grade_url = `/index/userInfo/get/777`;
+      // var grade_url = `/userInfo/get/777`;
       this.$http
         .get(grade_url)
         .then(res => {
@@ -294,8 +333,8 @@ export default {
         });
     },
     getTerm() {
-      // var term_url = `/index/userInfo/get/666`;
-      var term_url = `/userInfo/get/666`;
+      var term_url = `/index/userInfo/get/666`;
+      // var term_url = `/userInfo/get/666`;
       this.$http
         .get(term_url)
         .then(res => {
@@ -315,8 +354,8 @@ export default {
         });
     },
     loadSelect() {
-      var school_url = "/userInfo/school/get";
-      // var school_url = "/index/userInfo/school/get";
+      // var school_url = "/userInfo/school/get";
+      var school_url = "/index/userInfo/school/get";
       var tmp = [];
       this.$http
         .get(school_url)
@@ -338,8 +377,8 @@ export default {
       if (this.courseInfo.schoolId) {
         setTimeout(() => {
           console.log("getcollege");
-          var college_url = `/userInfo/school/get/${this.Info.schoolId}`;
-          // var college_url = `/index/userInfo/school/get/${this.courseInfo.schoolId}`;
+          // var college_url = `/userInfo/school/get/${this.Info.schoolId}`;
+          var college_url = `/index/userInfo/school/get/${this.courseInfo.schoolId}`;
           this.$http
             .get(college_url)
             .then(res => {
@@ -364,8 +403,8 @@ export default {
             if (this.courseInfo.collegeId) {
               setTimeout(() => {
                 console.log("getmajor");
-                var major_url = `/userInfo/school/get/${this.Info.collegeId}`;
-                // var major_url = `/index/userInfo/school/get/${this.courseInfo.collegeId}`;
+                // var major_url = `/userInfo/school/get/${this.Info.collegeId}`;
+                var major_url = `/index/userInfo/school/get/${this.courseInfo.collegeId}`;
                 this.$http
                   .get(major_url)
                   .then(res => {
@@ -390,8 +429,8 @@ export default {
       }
     },
     Load() {
-      var url="/class/course/getCreate"
-      // var url = "/index/class/course/getCreate";
+      // var url="/class/course/getCreate";
+      var url = "/index/class/course/getCreate";
       this.$http
         .get(url)
         .then(res => {
@@ -419,10 +458,10 @@ export default {
       this.courseInfo = this.$store.state.courseInfo;
       console.log(this.courseInfo);
     },
-     afterRead(file) {
+    afterRead(file) {
       // console.log(file);
-      var url = "/class/course/cover";
-      // var url = "/index/class/course/cover";
+      // var url = "/class/course/cover";
+      var url = "/index/class/course/cover";
       var data = new window.FormData();
 
       data.append("file", file.file);
@@ -445,7 +484,7 @@ export default {
         });
     }
   },
-  
+
   mounted() {
     this.Load();
     this.loadSelect();
@@ -457,5 +496,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>;

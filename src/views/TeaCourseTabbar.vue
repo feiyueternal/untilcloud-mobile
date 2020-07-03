@@ -17,7 +17,7 @@
       <van-tabbar-item
         to="/courseEdit"
         icon="setting">
-        编辑
+        课程信息
       </van-tabbar-item>
     </van-tabbar>
    <keep-alive>

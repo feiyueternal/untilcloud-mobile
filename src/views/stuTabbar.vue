@@ -17,7 +17,7 @@
       <van-tabbar-item
         to="/message"
         icon="chat">
-        消息
+        课程信息
       </van-tabbar-item>
     </van-tabbar>
     <router-view/>
