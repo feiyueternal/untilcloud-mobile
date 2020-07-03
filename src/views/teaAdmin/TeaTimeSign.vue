@@ -116,7 +116,6 @@ export default {
       });
     },
     conSign() {
-      this.flag = 0;
       this.user_test();
       if (this.time_flag == false) {
       } else {
@@ -213,6 +212,8 @@ export default {
               this.end_btn = false;
               this.csuid = res.data.data.id;
               this.signRe = res.data.data;
+            }else{
+              this.flag=0
             }
             console.log(res.data.data);
           }

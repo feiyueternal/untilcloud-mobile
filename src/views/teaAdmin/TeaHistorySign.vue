@@ -43,7 +43,7 @@ export default {
       this.courseid = this.$store.state.courseInfo.id;
     },
      onClickLeft(){
-        this.$router.push({ name: "Teatmp" });
+        this.$router.push({ name: "TeaSign" });
     },
     getAllSign() {
       var url = "/class/signIn/all";
