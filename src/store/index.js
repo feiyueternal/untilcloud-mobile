@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     courseInfo: '',
+    QR: '',
     rolesData: [],
     adminMenus: [],
     CLouduser:{
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    getQR(state, item) {
+      state.QR = item;
+    },
     getCourseInfo(state, item) {
       state.courseInfo = item;
     },

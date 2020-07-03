@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login'
 // import Changecode from '../views/Changecode'
 import Register from '../views/Register'
-import test from '../views/test'
+import scan from '../views/scan'
 import Tabbar from '../views/Tabbar'
 import TeacherTabbar from '../views/TeacherTabbar'
 import TeacherCourse from '../views/TeacherCourse'
@@ -12,17 +12,29 @@ import CreateCourse from '../views/CreateCourse'
 import TeacherInfo from '../views/TeacherInfo'
 import TeaCourseTabbar from '../views/TeaCourseTabbar'
 import CourseStu from '../views/teaAdmin/CourseStu'
-import TeaCourseEdit from '../views/teaAdmin/TeaCourseEdit'
+import courseEdit from '../views/teaAdmin/courseEdit'
 import TeaSign from '../views/teaAdmin/TeaSign'
 import stuTabbar from '../views/stuTabbar'
 import message from '../views/stuCourse/message'
 import otherStu from '../views/stuCourse/otherStu'
 import stuSign from '../views/stuCourse/stuSign'
+import showCourse from '../views/showCourse'
+import showQR from '../views/showQR'
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/showQR',
+    name: 'showQR',
+    component:resolve => require(['@/views/showQR.vue'],resolve)
+  },
+  {
+    path: '/showCourse',
+    name: 'showCourse',
+    component:resolve => require(['@/views/showCourse.vue'],resolve)
+  },
   {
     path: '/',
     name: 'Login',
@@ -55,9 +67,9 @@ const routes = [
         
       },
       {
-        path: '/test',
-        name: 'test',
-        component:resolve => require(['@/views/test.vue'],resolve), 
+        path: '/scan',
+        name: 'scan',
+        component:resolve => require(['@/views/scan.vue'],resolve), 
       },
       
       {
@@ -109,9 +121,9 @@ const routes = [
     component: TeaCourseTabbar,
     children:[
       {
-        path:'/TeaCourseEdit',
-        name:'TeaCourseEdit',
-        component:resolve => require(['@/views/teaAdmin/TeaCourseEdit.vue'],resolve),
+        path:'/courseEdit',
+        name:'courseEdit',
+        component:resolve => require(['@/views/teaAdmin/courseEdit.vue'],resolve),
       },
       {
         path:'/TeaSign',
@@ -137,6 +149,11 @@ const routes = [
         path:'/TeaHistorySign',
         name:'TeaHistorySign',
         component:resolve => require(['@/views/teaAdmin/TeaHistorySign.vue'],resolve)
+      },
+      {
+        path:'/TeaGesSign',
+        name:'TeaGesSign',
+        component:resolve => require(['@/views/teaAdmin/TeaGesSign.vue'],resolve)
       }
     ]
 },
@@ -168,6 +185,11 @@ const routes = [
         path:'/stuHistorySign',
         name:'stuHistorySign',
         component:resolve => require(['@/views/stuCourse/stuHistorySign.vue'],resolve)
+      },
+      {
+        path:'/stuGesSign',
+        name:'stuGesSign',
+        component:resolve => require(['@/views/stuCourse/stuGesSign.vue'],resolve)
       }
     ]
 }

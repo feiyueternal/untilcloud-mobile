@@ -8,9 +8,9 @@
       </van-tabbar-item>
 
       <van-tabbar-item
-      to="/test" 
-      icon="fire">
-        <span>发现</span>
+      to="/scan" 
+      icon="wap-nav">
+        <span>扫一扫</span>
       </van-tabbar-item>
 
       <van-tabbar-item

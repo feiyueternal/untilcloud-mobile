@@ -8,7 +8,7 @@
     <van-button round icon="clock-o" type="default" @click="openTime">限时签到</van-button>
     </van-col>
       <van-col span="8">
-    <van-button round icon="good-job-o" type="default">手势签到</van-button>
+    <van-button round icon="good-job-o" type="default" @click="openGes">手势签到</van-button>
     </van-col>
   </div>
 </div>
@@ -33,6 +33,9 @@ export default {
     },
     openTime(){
       this.$router.push({name:"TeaTimeSign"})
+    },
+    openGes(){
+      this.$router.push({name:"TeaGesSign"})
     },
     onClickLeft(){
         this.$router.push({ name: "TeaSign" });

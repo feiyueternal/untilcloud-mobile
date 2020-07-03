@@ -54,8 +54,8 @@ export default {
   },
   methods: {
     Load() {
-      var url="/class/stu/course/getJoin"
-      // var url = "/index/class/stu/course/getJoin";
+      // var url="/class/stu/course/getJoin"
+      var url = "/index/class/stu/course/getJoin";
       this.$http
         .get(url)
         .then(res => {
@@ -82,23 +82,26 @@ export default {
       this.$store.commit("getCourseInfo", item);
     },
     onSearch() {
-      var url = "/class/stu/course/join";
-      // var url = "/index/class/stu/course/join";
-      var data = {cid: this.value};
+      var url = `/index/class/stu/course/get/${this.value}`
+      // var url = "/class/stu/course/get/${this.value}";
+      
+      // var data = {cid: this.value};
       this.$http
-        .get(url, { params: data })
+        .get(url)
         .then(res => {
           if (res.data.code == 200) {
             console.log(res.data.data);
             this.Info = res.data.data;
-            this.Load();
+            this.$store.commit('getCourseInfo', res.data.data);
+            this.$router.push({ name: "showCourse" });
+            // this.Load();
           } else {
             this.$notify({ type: "danger", message: res.data.message });
           }
         })
         .catch(err => {
           console.log(err);
-          this.$notify({ type: "danger", message: "获取课程失败" });
+          this.$notify({ type: "danger", message: "课程不存在" });
         });
     },
     onCancel() {

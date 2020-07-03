@@ -15,12 +15,14 @@
       </van-tabbar-item>
 
       <van-tabbar-item
-        to="/TeaCourseEdit"
+        to="/courseEdit"
         icon="setting">
         编辑
       </van-tabbar-item>
     </van-tabbar>
-    <router-view/>
+   <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

@@ -11,16 +11,16 @@ module.exports = {
     devServer: {
         port: 8080,
         https: false,
-        // proxy: {
-        //     '/index': {
-        //         target: 'http://47.98.142.113:8443/api',
-        //         changeOrigin: true,
-        //         ws: true,
-        //         pathRewrite: {
-        //             '^/index': ''
-        //         }
-        //     }
-        // }
+        proxy: {
+            '/index': {
+                target: 'http://47.98.142.113:8443/api',
+                changeOrigin: true,
+                ws: true,
+                pathRewrite: {
+                    '^/index': ''
+                }
+            }
+        }
     },
     
 }
