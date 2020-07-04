@@ -128,7 +128,7 @@ export default {
         setTimeout(() =>{
         this.getthisSign();
         console.log("3")
-      },50)
+      },50);
       }
       
     }
