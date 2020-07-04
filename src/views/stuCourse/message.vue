@@ -1,6 +1,7 @@
 <template>
+  
   <div class="message">
-    <van-nav-bar title left-text="返回" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="" left-text="返回" left-arrow @click-left="onClickLeft" />
     <form>
        <van-row>
         <van-col span="12">
@@ -46,7 +47,7 @@ export default {
     getCourseInfo() {
       this.courseInfo = this.$store.state.courseInfo;
       console.log(this.courseInfo)
-    }
+    },
   },
   mounted(){
      this.getCourseInfo()

@@ -70,8 +70,17 @@ export default {
   },
   mounted() {
     this.getCourseInfo();
+    //监听返回键
+if (window.history && window.history.pushState) {
+  history.pushState(null, null, document.URL);
+  window.addEventListener('popstate', this.onClickLeft, false);//false阻止默认事件 
+}
   },
-  created() {}
+  created() {},
+   destroyed () {
+    window.removeEventListener('popstate', this.onClickLeft, false);//false阻止默认事件
+  },
+  
 };
 </script>
 

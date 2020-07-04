@@ -116,7 +116,6 @@ export default {
       });
     },
     conSign() {
-      this.flag = 0;
       this.user_test();
       if (this.time_flag == false) {
       } else {
@@ -213,6 +212,8 @@ export default {
               this.end_btn = false;
               this.csuid = res.data.data.id;
               this.signRe = res.data.data;
+            }else{
+              this.flag=0
             }
             console.log(res.data.data);
           }
@@ -323,6 +324,10 @@ export default {
         this.countTime();
       });
     }, 300);
+    if (window.history && window.history.pushState) {
+  history.pushState(null, null, document.URL);
+  window.addEventListener('popstate', this.onClickLeft, false);//false阻止默认事件 
+}
   },
   created() {
     this.getLocation();
@@ -338,7 +343,10 @@ export default {
     minute: function() {
       return this.num(this.time_min);
     }
-  }
+  },
+   destroyed () {
+    window.removeEventListener('popstate', this.onClickLeft, false);//false阻止默认事件
+  },
 };
 </script>
 

@@ -198,8 +198,8 @@ export default {
       this.$router.push({ name: "TeacherCourse" });
     },
     editCourse() {
-      var url = "/index/class/course/edit";
-      // var url = "/class/course/edit";
+      // var url = "/index/class/course/edit";
+      var url = "/class/course/edit";
       var data = {
         id: this.courseInfo.id,
         name: this.courseInfo.name,
@@ -232,8 +232,8 @@ export default {
         });
     },
     delCourse() {
-      var url = "/index/class/course/delete";
-      // var url = "/class/course/delete";
+      // var url = "/index/class/course/delete";
+      var url = "/class/course/delete";
       var data = {
         cid: this.courseInfo.id
       };
@@ -261,8 +261,8 @@ export default {
       this.courseInfo.schoolId = Id;
       this.courseInfo.college = null;
       this.courseInfo.major = null;
-      // var college_url = `/userInfo/school/get/${Id}`;
-      var college_url = `/index/userInfo/school/get/${Id}`;
+      var college_url = `/userInfo/school/get/${Id}`;
+      // var college_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(college_url)
         .then(res => {
@@ -286,8 +286,8 @@ export default {
       var Id = this.college_values[index].id;
       this.courseInfo.collegeId = Id;
       this.courseInfo.major = null;
-      // var major_url = `/userInfo/school/get/${Id}`;
-      var major_url = `/index/userInfo/school/get/${Id}`;
+      var major_url = `/userInfo/school/get/${Id}`;
+      // var major_url = `/index/userInfo/school/get/${Id}`;
       this.$http
         .get(major_url)
         .then(res => {
@@ -319,8 +319,8 @@ export default {
       this.showPicker5 = false;
     },
     getGrade() {
-      var grade_url = `/index/userInfo/get/777`;
-      // var grade_url = `/userInfo/get/777`;
+      // var grade_url = `/index/userInfo/get/777`;
+      var grade_url = `/userInfo/get/777`;
       this.$http
         .get(grade_url)
         .then(res => {
@@ -340,8 +340,8 @@ export default {
         });
     },
     getTerm() {
-      var term_url = `/index/userInfo/get/666`;
-      // var term_url = `/userInfo/get/666`;
+      // var term_url = `/index/userInfo/get/666`;
+      var term_url = `/userInfo/get/666`;
       this.$http
         .get(term_url)
         .then(res => {
@@ -361,8 +361,8 @@ export default {
         });
     },
     loadSelect() {
-      // var school_url = "/userInfo/school/get";
-      var school_url = "/index/userInfo/school/get";
+      var school_url = "/userInfo/school/get";
+      // var school_url = "/index/userInfo/school/get";
       var tmp = [];
       this.$http
         .get(school_url)
@@ -384,8 +384,8 @@ export default {
       if (this.courseInfo.schoolId) {
         setTimeout(() => {
           console.log("getcollege");
-          // var college_url = `/userInfo/school/get/${this.Info.schoolId}`;
-          var college_url = `/index/userInfo/school/get/${this.courseInfo.schoolId}`;
+          var college_url = `/userInfo/school/get/${this.Info.schoolId}`;
+          // var college_url = `/index/userInfo/school/get/${this.courseInfo.schoolId}`;
           this.$http
             .get(college_url)
             .then(res => {
@@ -410,8 +410,8 @@ export default {
             if (this.courseInfo.collegeId) {
               setTimeout(() => {
                 console.log("getmajor");
-                // var major_url = `/userInfo/school/get/${this.Info.collegeId}`;
-                var major_url = `/index/userInfo/school/get/${this.courseInfo.collegeId}`;
+                var major_url = `/userInfo/school/get/${this.Info.collegeId}`;
+                // var major_url = `/index/userInfo/school/get/${this.courseInfo.collegeId}`;
                 this.$http
                   .get(major_url)
                   .then(res => {
@@ -436,8 +436,8 @@ export default {
       }
     },
     Load() {
-      // var url="/class/course/getCreate";
-      var url = "/index/class/course/getCreate";
+      var url="/class/course/getCreate";
+      // var url = "/index/class/course/getCreate";
       this.$http
         .get(url)
         .then(res => {
@@ -467,8 +467,8 @@ export default {
     },
     afterRead(file) {
       // console.log(file);
-      // var url = "/class/course/cover";
-      var url = "/index/class/course/cover";
+      var url = "/class/course/cover";
+      // var url = "/index/class/course/cover";
       var data = new window.FormData();
 
       data.append("file", file.file);

@@ -100,12 +100,24 @@ export default {
         });
       });
     },
+    transD (date) {  
+    var y = date.getFullYear();  
+                var m = date.getMonth() + 1;  
+                m = m < 10 ? ('0' + m) : m;  
+                var d = date.getDate();  
+                d = d < 10 ? ('0' + d) : d;  
+                var h = date.getHours();  
+                h=h < 10 ? ('0' + h) : h;  
+                var minute = date.getMinutes();  
+                minute = minute < 10 ? ('0' + minute) : minute;  
+                var second=date.getSeconds();  
+                second=second < 10 ? ('0' + second) : second;  
+                return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second; 
+},
+
     conSign() {
       this.checknowSign();
       this.$nextTick(() =>{
-        if(this.getinfo==null){
-          this.$notify({ type: "warning", message: "getinfo空" });
-        }
         if (this.still_sign == true) {
         setTimeout(() => {
           this.$nextTick(() => {
@@ -117,14 +129,18 @@ export default {
                 message: "获取不到位置 无法签到"
               });
             } else {
+              var a=new Date()
+              var b=this.transD(a)
+              console.log(b)
               var data = {
                 mode: "time",
                 value: "1",
+                time:b,
                 longitude: this.longt,
                 latitude: this.latit,
                 courseSignIn: this.getinfo
               };
-              console.log(data);
+              console.log(data)
               this.$http
                 .post(url, data)
                 .then(res => {
@@ -272,11 +288,17 @@ export default {
         this.countTime();
       });
     }, 300);
-   
+   //监听返回键
+if (window.history && window.history.pushState) {
+  history.pushState(null, null, document.URL);
+  window.addEventListener('popstate', this.onClickLeft, false);//false阻止默认事件 
+}
   },
   created() {
     this.getLocation();
-    // this.getinfo = this.$route.params.courseinfo;
+    this.getCourseId(); 
+    this.countTime();
+    this.getinfo = this.$route.params.courseinfo;
   },
   computed: {
     second: function() {
@@ -285,7 +307,10 @@ export default {
     minute: function() {
       return this.num(this.time_min);
     }
-  }
+  },
+   destroyed () {
+    window.removeEventListener('popstate', this.onClickLeft, false);//false阻止默认事件
+  },
 };
 </script>
 

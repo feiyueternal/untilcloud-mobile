@@ -1,44 +1,35 @@
 <template>
   <div>
-    <van-nav-bar title="历史签到" left-text="返回" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="已签到成员" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="Teatmp">
-      <van-list
+      <!-- <van-list
         v-model="loading"
         :finished="finished"
         finished-text="暂无更多数据"
         @load="load_more_items"
       >
-        <!-- <van-cell
-          class="ee"
-          size="large"
-          use-label-slot="true"
-          v-for="item in hito"
-          :key="item.id"
-          :title="'模式：'+item.mode"
-        >
-          <van-cell :title="item.startTime"></van-cell>
-          <van-cell :title="item.endTime"></van-cell>
-        </van-cell>-->
+        
         <van-cell-group>
           
             <div v-for="(item,index) in hito" :key="item.id">
-              <van-cell is-link to="SignMember">
-              <span>{{index+1}}&nbsp;&nbsp;</span>
-                <span v-if="item.mode=='time'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;限时签到&nbsp;&nbsp;</span>
-                <span v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手势签到&nbsp;&nbsp;</span>
-
+              <van-cell is-link>
+              <span>{{index}}</span>
+              <div class="emmm">
+                <span v-if="item.mode=='time'">限时签到&nbsp;&nbsp;</span>
+                <span v-else>手势签到&nbsp;&nbsp;</span>
+              </div>
               </van-cell>
             </div>
           
         </van-cell-group>
-      </van-list>
+      </van-list> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "TeaHistorySign",
+  name: "SignMember",
   data() {
     return {
       courseid: "",
@@ -55,7 +46,7 @@ export default {
       this.courseid = this.$store.state.courseInfo.id;
     },
     onClickLeft() {
-      this.$router.push({ name: "TeaSign" });
+      this.$router.push({ name: "TeaHistorySign" });
     },
     getAllSign() {
       var url = "/class/signIn/all";
@@ -87,8 +78,6 @@ export default {
     }
   },
   mounted() {
-    this.getCourseInfo();
-    this.getAllSign();
     if (window.history && window.history.pushState) {
   history.pushState(null, null, document.URL);
   window.addEventListener('popstate', this.onClickLeft, false);//false阻止默认事件 

@@ -44,10 +44,17 @@ export default {
   },
   mounted(){
     this.getCourseInfo()
+    if (window.history && window.history.pushState) {
+  history.pushState(null, null, document.URL);
+  window.addEventListener('popstate', this.onClickLeft, false);//false阻止默认事件 
+}
   },
   created(){
     
-  }
+  },
+  destroyed () {
+    window.removeEventListener('popstate', this.onClickLeft, false);//false阻止默认事件
+  },
 }
 </script>
 
