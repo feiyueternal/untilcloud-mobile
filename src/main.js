@@ -7,13 +7,16 @@ import 'vant/lib/index.css';
 import less from 'less'
 import axios from 'axios'
 import Router from 'vue-router';
-import permit from './utils/permission' 
+import permit from './utils/permission';
+// import VueBarcode from 'vue-barcode';
+import VueBarcode from '@xkeshi/vue-barcode';
 
 Vue.config.productionTip = false
 Vue.use(Vant)
 Vue.use(less)
+Vue.component('barcode', VueBarcode);
 
-axios.defaults.baseURL='http://47.98.142.113:8443/api'
+// axios.defaults.baseURL='http://47.98.142.113:8443/api'
 Vue.prototype.$http = axios
 
 const originalPush = Router.prototype.push
@@ -28,5 +31,6 @@ document.addEventListener('deviceready',function(){
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  'barcode': VueBarcode,
 }).$mount('#app')

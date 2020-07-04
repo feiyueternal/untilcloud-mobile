@@ -20,11 +20,17 @@ import otherStu from '../views/stuCourse/otherStu'
 import stuSign from '../views/stuCourse/stuSign'
 import showCourse from '../views/showCourse'
 import showQR from '../views/showQR'
+import TeaShowQR from '../views/TeaShowQR'
 
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/TeaShowQR',
+    name: 'TeaShowQR',
+    component:resolve => require(['@/views/TeaShowQR.vue'],resolve)
+  },
   {
     path: '/showQR',
     name: 'showQR',

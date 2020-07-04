@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     Load() {
-      var url="/userInfo"
+      var url="/userInfo";
       // var url = "/index/userInfo";
       this.$http
         .get(url)

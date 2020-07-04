@@ -11,7 +11,9 @@
         @cancel="onCancel"
       />
     </form>
+    <van-field v-model="value2" label="加入的课程：" disabled/>
       <div>
+        
         <van-cell
           is-link
           to="otherStu"
@@ -49,13 +51,14 @@ export default {
     return {
       isLoading: true,
       Info: "",
-      value: ""
+      value: "",
+      value2: ''
     };
   },
   methods: {
     Load() {
-      var url="/class/stu/course/getJoin";
-      // var url = "/index/class/stu/course/getJoin";
+      // var url="/class/stu/course/getJoin";
+      var url = "/index/class/stu/course/getJoin";
       this.$http
         .get(url)
         .then(res => {
@@ -82,8 +85,8 @@ export default {
       this.$store.commit("getCourseInfo", item);
     },
     onSearch() {
-      // var url = `/index/class/stu/course/get/${this.value}`
-      var url = `/class/stu/course/get/${this.value}`;
+      var url = `/index/class/stu/course/get/${this.value}`
+      // var url = `/class/stu/course/get/${this.value}`;
       
       // var data = {cid: this.value};
       this.$http

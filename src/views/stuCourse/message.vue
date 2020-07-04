@@ -2,6 +2,17 @@
   <div class="message">
     <van-nav-bar title left-text="返回" left-arrow @click-left="onClickLeft" />
     <form>
+       <van-row>
+        <van-col span="12">
+          
+        </van-col>
+        <van-col span="12">
+          
+        </van-col>
+      </van-row>
+
+      
+
       <van-field label="ID" v-model="courseInfo.id" disabled></van-field>
       <van-field label="课程" v-model="courseInfo.name" disabled></van-field>
       <van-field label="年级" v-model="courseInfo.grade" disabled></van-field>

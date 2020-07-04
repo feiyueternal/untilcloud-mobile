@@ -3,9 +3,8 @@
     <van-nav-bar title left-text="返回" left-arrow @click-left="onClickLeft" />
     <form>
       <van-row>
-        <van-col offset="6" span="12">
-          
-          <!-- <van-uploader
+        <van-col offset="6" span="10">
+          <van-uploader
             :after-read="afterRead"
             upload-text="上传头像"
             max-size="1*1024*1024"
@@ -14,13 +13,17 @@
             <van-image width="7rem" height="7rem" :src="courseInfo.cover">
               <template v-slot:error>加载失败</template>
             </van-image>
-          </van-uploader> -->
-
-          <van-image width="10rem" height="10rem" :src="courseInfo.qrcode">
-              <template v-slot:error>加载失败</template>
-            </van-image>
+          </van-uploader>
+          
         </van-col>
-        
+        <van-col span="7">
+          <van-cell class="qr" title="查看二维码" is-link to="TeaShowQR" @click="showQR"/>
+        </van-col>
+      </van-row>
+
+      <van-row>
+        <van-col span="12"></van-col>
+        <van-col offset="0" span="12"></van-col>
       </van-row>
 
       <van-row>
@@ -187,6 +190,10 @@ export default {
     };
   },
   methods: {
+    showQR() {
+      this.$router.push({ name: "TeaShowQR" });
+      this.$store.commit('getQR', this.courseInfo.qrcode);
+    },
     onClickLeft() {
       this.$router.push({ name: "TeacherCourse" });
     },
@@ -496,4 +503,7 @@ export default {
 </script>
 
 <style scoped>
+.qr {
+  margin-top: 80px;
+}
 </style>;

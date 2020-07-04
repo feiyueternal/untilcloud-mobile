@@ -2,6 +2,7 @@
    <div>
     <van-pull-refresh  v-model="isLoading" @refresh="onRefresh" >
     <div>
+      <van-field v-model="value" label="创建的课程：" disabled/>
     <van-cell is-link to="CourseStu" :key="index" v-for="(item, index) in Info" @click="onClick(item)">
       <van-row gutter="5" type="flex">
         <van-col span="8" offset="2">
@@ -40,6 +41,7 @@ export default {
     return {
       isLoading: true,
       Info: "",
+      value: ''
     }
     
   },

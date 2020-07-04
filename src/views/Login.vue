@@ -158,7 +158,7 @@ export default {
           count: 4
         };
         // var url = "/common/getVerificationCode";
-        var url="/index/common/getVerificationCode"
+        var url="/index/common/getVerificationCode";
         this.$http
           .get(url, { params: data })
           .then(res => {

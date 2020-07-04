@@ -2,6 +2,7 @@
   <div>
     <van-nav-bar title="课程信息" left-text="返回" left-arrow @click-left="onClickLeft" />
     <form>
+      <van-image width="100" height="100" :src="courseInfo.cover" />
       <van-field label="ID" v-model="courseInfo.id" disabled></van-field>
       <van-field label="课程" v-model="courseInfo.name" disabled></van-field>
       <van-field label="年级" v-model="courseInfo.grade" disabled></van-field>
@@ -10,9 +11,7 @@
       <van-field label="学院" v-model="courseInfo.college" disabled></van-field>
       <van-field label="专业" v-model="courseInfo.major" disabled></van-field>
       <van-field label="老师" v-model="courseInfo.teacher" disabled></van-field>
-      <van-field label="学习要求" v-model="courseInfo.learnRequire" disabled></van-field>
-      <van-field label="教学计划" v-model="courseInfo.teachProgress" disabled></van-field>
-      <van-field label="考试安排" v-model="courseInfo.examArrange" disabled></van-field>
+      
     </form>
     <van-button @click="join" type="primary" size="large" :disabled="btn" block>加入</van-button>
   </div>
@@ -29,8 +28,8 @@ export default {
 
   methods: {
     Check() {
-      var url="/class/stu/course/getJoin"
-      // var url = "/index/class/stu/course/getJoin";
+      // var url="/class/stu/course/getJoin";
+      var url = "/index/class/stu/course/getJoin";
       this.$http
         .get(url)
         .then(res => {
@@ -54,8 +53,8 @@ export default {
     },
     join() {
     //   this.Check();
-      var url = "/class/stu/course/join";
-      // var url = "/index/class/stu/course/join";
+      // var url = "/class/stu/course/join";
+      var url = "/index/class/stu/course/join";
       var data = { cid: this.courseInfo.id };
       this.$http
         .get(url, { params: data })

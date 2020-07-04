@@ -12,7 +12,7 @@
           <template v-slot:error>加载失败</template>
         </van-image>
       </van-uploader>
-      <van-field label="课程" v-model="Info.name"></van-field>
+      <van-field label="课程" v-model="Info.name" required></van-field>
       <van-field
         readonly
         clickable
@@ -21,6 +21,7 @@
         label="选择年级"
         placeholder="点击选择"
         @click="showPicker4 = true"
+        required
       />
       <van-popup v-model="showPicker4" position="bottom">
         <van-picker
@@ -44,6 +45,7 @@
         label="选择学期"
         placeholder="点击选择"
         @click="showPicker5 = true"
+        required
       />
       <van-popup v-model="showPicker5" position="bottom">
         <van-picker
@@ -62,6 +64,7 @@
         label="选择学校"
         placeholder="点击选择"
         @click="showPicker1 = true"
+        required
       />
       <van-popup v-model="showPicker1" position="bottom">
         <van-picker
@@ -80,6 +83,7 @@
         label="选择学院"
         placeholder="点击选择"
         @click="showPicker2 = true"
+        required
       />
       <van-popup v-model="showPicker2" position="bottom">
         <van-picker
@@ -98,6 +102,7 @@
         label="选择专业"
         placeholder="点击选择"
         @click="showPicker3 = true"
+        required
       />
       <van-popup v-model="showPicker3" position="bottom">
         <van-picker
@@ -111,7 +116,7 @@
       <!-- <van-field label="学院" v-model="Info.college"></van-field> -->
       <!-- <van-field label="学院ID" v-model="Info.collegeId"></van-field> -->
       <!-- <van-field label="专业" v-model="Info.major"></van-field> -->
-      <van-field label="老师" v-model="Info.teacher"></van-field>
+      <van-field label="老师" v-model="Info.teacher" required></van-field>
       <van-field label="学习要求" v-model="Info.learnRequire"></van-field>
       <van-field label="教学计划" v-model="Info.teachProgress"></van-field>
       <van-field label="考试安排" v-model="Info.examArrange"></van-field>
