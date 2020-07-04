@@ -288,7 +288,11 @@ export default {
         this.countTime();
       });
     }, 300);
-   
+   //监听返回键
+if (window.history && window.history.pushState) {
+  history.pushState(null, null, document.URL);
+  window.addEventListener('popstate', this.onClickLeft, false);//false阻止默认事件 
+}
   },
   created() {
     this.getLocation();
@@ -303,7 +307,10 @@ export default {
     minute: function() {
       return this.num(this.time_min);
     }
-  }
+  },
+   destroyed () {
+    window.removeEventListener('popstate', this.onClickLeft, false);//false阻止默认事件
+  },
 };
 </script>
 

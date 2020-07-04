@@ -154,6 +154,11 @@ const routes = [
         path:'/TeaGesSign',
         name:'TeaGesSign',
         component:resolve => require(['@/views/teaAdmin/TeaGesSign.vue'],resolve)
+      },
+      {
+        path:'/SignMember',
+        name:'SignMember',
+        component:resolve => require(['@/views/teaAdmin/SignMember.vue'],resolve)
       }
     ]
 },
