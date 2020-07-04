@@ -21,6 +21,26 @@ const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
+
+// router.beforeEach((to, from, next) => {
+//   var clu = window.localStorage.getItem('CLouduser')
+//   if(clu){
+//     var tea=window.localStorage.getItem('isTea')
+//     if(tea=="false"){
+//       this.$router.push({ name: "Home" });
+      
+//     }else{
+//       this.$router.push({ name: "TeacherCourse" });
+//     }
+//   }else{
+//     if (to.path === '/') {
+//       next()
+//     } else {
+//       next({ path: '/' });
+//     }
+//   }
+// })
+
 document.addEventListener('deviceready',function(){
   permit()
 })

@@ -51,9 +51,10 @@ export default {
         .get(url)
         .then(res => {
           if (res.data.code == 200) {
-            console.log(res.data.data);
+            
             this.Info = res.data.data;
           }
+          console.log(res.data.data);
         })
         .catch(err => {
           console.log(err);

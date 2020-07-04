@@ -276,6 +276,7 @@ export default {
             this.$store.commit("login", res.data.data);
             this.$notify({ type: "success", message: "欢迎~" });
             console.log(this.isTea);
+            // this.$store.commit("changeisT",this.isTea)
             if (this.isTea == true) {
               this.$router.push({ name: "TeacherCourse" });
             } else {
@@ -285,7 +286,9 @@ export default {
             this.show = false;
           } else {
             console.log(res);
-            this.$toast(res.data.message);
+            this.$dialog.alert({
+                message: res.data.message
+              });
             this.show = false;
           }
         })
