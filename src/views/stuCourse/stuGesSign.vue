@@ -12,6 +12,7 @@
 import stuGestureUnlock from "./stuGestureUnlock";
 import AMap from "AMap";
 export default {
+  components: { stuGestureUnlock },
   data() {
     return {
       courseid: "",
@@ -136,25 +137,25 @@ export default {
               this.$http
                 .post(url, data)
                 .then(res => {
-                  // if (res.data.code == 200) {
-                  //   this.$notify({ type: "success", message: "签到成功" });
-                  // } else if (res.data.code == 701) {
-                  //   this.$dialog
-                  //     .alert({
-                  //       message: "请勿重复签到"
-                  //     })
-                  //     .then(() => {
-                  //       //   this.sign_btn = true;
-                  //     });
-                  // } else if (res.data.code == 702) {
-                  //   this.$dialog
-                  //     .alert({
-                  //       message: "超出签到距离，签到失败"
-                  //     })
-                  //     .then(() => {
-                  //       //   this.sign_btn = true;
-                  //     });
-                  // }
+                  if (res.data.code == 200) {
+                    this.$notify({ type: "success", message: "签到成功" });
+                  } else if (res.data.code == 701) {
+                    this.$dialog
+                      .alert({
+                        message: "请勿重复签到"
+                      })
+                      .then(() => {
+                        //   this.sign_btn = true;
+                      });
+                  } else if (res.data.code == 702) {
+                    this.$dialog
+                      .alert({
+                        message: "超出签到距离，签到失败"
+                      })
+                      .then(() => {
+                        //   this.sign_btn = true;
+                      });
+                  }
                   this.$dialog.alert({
                     message: res.data.message
                   });

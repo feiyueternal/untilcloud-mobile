@@ -216,7 +216,7 @@ export default {
                   .then(res => {
                     if (res.data.code == 200) {
                     //   this.start_btn = true;
-
+                        this.$notify({ type: "success", message: "创建签到成功" });
                     //   this.timer(this.sign_time, 0);
                       setTimeout(() => {
                         this.checknowSign();

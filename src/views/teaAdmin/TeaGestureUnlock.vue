@@ -238,7 +238,7 @@ export default {
   },
   created() {
    // 存一下父组件传过来的fatherPassword，因为子组件不能直接修改父组件传过来的值
-        this.createPassword = this.fatherPassword
+        // this.createPassword = this.fatherPassword
   },
   computed: {
    

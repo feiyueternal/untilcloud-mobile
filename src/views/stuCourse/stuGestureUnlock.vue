@@ -46,7 +46,7 @@ export default {
           clientHeight: 0,
           isCorrect: true, // 密码是否且是否正确
           redStyle: false, // li样式是否为红色
-          createPassword: Array, // 这个用来存一下父组件传过来的fatherPassword，因为子组件不能直接修改父组件传过来的值
+          createPassword: [], // 这个用来存一下父组件传过来的fatherPassword，因为子组件不能直接修改父组件传过来的值
           radius: Number, // 半径
           tips: false // 错误提示是否显示
         }
@@ -242,7 +242,7 @@ export default {
   },
   created() {
    // 存一下父组件传过来的fatherPassword，因为子组件不能直接修改父组件传过来的值
-        this.createPassword = this.fatherPassword
+        // this.createPassword = this.fatherPassword
   },
   computed: {
    
