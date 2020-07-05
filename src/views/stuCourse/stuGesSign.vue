@@ -3,7 +3,7 @@
     <div>
       <van-nav-bar title="手势签到" left-text left-arrow @click-left="onClickLeft" />
     </div>
-
+    <stu-gesture-unlock @firstDown="onceDraw" @onDrawDone="fromNinePoint"></stu-gesture-unlock>
     <van-button @click="back" type="primary" size="large">返回</van-button>
   </div>
 </template>
