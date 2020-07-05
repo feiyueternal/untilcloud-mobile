@@ -104,7 +104,7 @@ export default {
       showPicker3: false,
       isLoading: true,
       Idenid: '',
-      isTea: '',
+      isTea: false,
       school_values: [],
       school_select: [],
       college_values: [],
@@ -120,11 +120,11 @@ export default {
       this.$http
         .get(url)
         .then(res => {
+          console.log(res.data)
           if (res.data.code == 200) {
             this.Info = res.data.data;
             console.log(this.Info);
-            // this.Idenid = res.data.data.roles[0].id;
-            // this.Idenid = this.Idenid + "";
+            
              for(var i = 0; i < res.data.data.roles.length; i++) {
               if(res.data.data.roles[i].name == 'teacher') {
                 this.isTea = true;
@@ -332,7 +332,9 @@ export default {
             this.$notify({ type: "success", message: "保存信息成功" });
             this.Load();
             if(this.Idenid == 3) {
-              this.$router.push({ name: "TeacherCourse" })
+              this.$router.push({ name: "TeacherInfo" })
+            }else{
+              this.$router.push({ name: "Myinfo" }); 
             }
           }
         })
@@ -348,7 +350,14 @@ export default {
       console.log(this.Info);
       this.loadSelect();
     }, 500);
-  }
+    if (window.history && window.history.pushState) {
+  history.pushState(null, null, document.URL);
+  window.addEventListener('popstate', this.onClickLeft, false);//false阻止默认事件 
+}
+  },
+  destroyed () {
+    window.removeEventListener('popstate', this.onClickLeft, false);//false阻止默认事件
+  },
 };
 </script>
 <style scoped>
