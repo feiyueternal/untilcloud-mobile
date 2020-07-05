@@ -190,9 +190,9 @@ export default {
         collegeId: "",
         major: "",
         teacher: "",
-        learnRequire: "",
-        teachProgress: "",
-        examArrange: ""
+        learnRequire: "暂无要求",
+        teachProgress: "暂无要求",
+        examArrange: "暂无要求"
       },
       grade_values: [],
       grade_select: [],
