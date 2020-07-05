@@ -57,8 +57,8 @@ export default {
   },
   methods: {
     Load() {
-      var url="/class/stu/course/getJoin";
-      // var url = "/index/class/stu/course/getJoin";
+      // var url="/class/stu/course/getJoin";
+      var url = "/index/class/stu/course/getJoin";
       this.$http
         .get(url)
         .then(res => {
@@ -85,8 +85,8 @@ export default {
       this.$store.commit("getCourseInfo", item);
     },
     onSearch() {
-      // var url = `/index/class/stu/course/get/${this.value}`
-      var url = `/class/stu/course/get/${this.value}`;
+      var url = `/index/class/stu/course/get/${this.value}`
+      // var url = `/class/stu/course/get/${this.value}`;
       
       // var data = {cid: this.value};
       this.$http
@@ -104,7 +104,7 @@ export default {
         })
         .catch(err => {
           console.log(err);
-          this.$notify({ type: "danger", message: "课程不存在" });
+          this.$notify({ type: "danger", message: "搜索失败" });
         });
     },
     onCancel() {
