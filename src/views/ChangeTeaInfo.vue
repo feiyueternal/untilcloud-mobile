@@ -115,8 +115,8 @@ export default {
   },
   methods: {
     Load() {
-      // var url = "/userInfo";
-      var url = "/index/userInfo";
+      var url = "/userInfo";
+      // var url = "/index/userInfo";
       this.$http
         .get(url)
         .then(res => {
@@ -330,8 +330,10 @@ export default {
           if (res.data.code == 200) {
             this.$notify({ type: "success", message: "保存信息成功" });
             this.Load();
-            if(this.Idenid == 5) {
-              this.$router.push({ name: "Home" });
+            if(this.Idenid == 3) {
+              this.$router.push({ name: "TeacherInfo" })
+            }else{
+              this.$router.push({ name: "Myinfo" }); 
             }
           }
         })

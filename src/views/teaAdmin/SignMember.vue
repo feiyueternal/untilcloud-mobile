@@ -2,27 +2,27 @@
   <div>
     <van-nav-bar title="已签到成员" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="Teatmp">
-      <!-- <van-list
+      <div>签到开始时间:{{startTime}}</div>
+      <div>签到结束时间:{{endTime}}</div>
+      <van-list
         v-model="loading"
         :finished="finished"
         finished-text="暂无更多数据"
         @load="load_more_items"
       >
-        
         <van-cell-group>
-          
-            <div v-for="(item,index) in hito" :key="item.id">
-              <van-cell is-link>
-              <span>{{index}}</span>
-              <div class="emmm">
-                <span v-if="item.mode=='time'">限时签到&nbsp;&nbsp;</span>
-                <span v-else>手势签到&nbsp;&nbsp;</span>
-              </div>
-              </van-cell>
+          <div v-for="(item,index) in hito" :key="item.id">
+            <div class="oo">
+              <span>&nbsp;&nbsp;{{index+1}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <!-- <div class="emmm"> -->
+              <span>{{item.ino}}&nbsp;&nbsp;</span>
+              <span>&nbsp;&nbsp;{{item.name}}&nbsp;&nbsp;</span>
+              <span>&nbsp;&nbsp;{{item.time}}&nbsp;&nbsp;</span>
+              <!-- </div> -->
             </div>
-          
+          </div>
         </van-cell-group>
-      </van-list> -->
+      </van-list>
     </div>
   </div>
 </template>
@@ -32,28 +32,28 @@ export default {
   name: "SignMember",
   data() {
     return {
-      courseid: "",
+      csiid: null,
       hito: {},
       finished: false,
       loading: false,
       offset: 0,
       page: 0,
-      limit: 10
+      limit: 10,
+      startTime: null,
+      endTime: null
     };
   },
   methods: {
-    getCourseInfo() {
-      this.courseid = this.$store.state.courseInfo.id;
-    },
     onClickLeft() {
       this.$router.push({ name: "TeaHistorySign" });
     },
-    getAllSign() {
-      var url = "/class/signIn/all";
-      // var url="/index/class/signIn/all"
+    getthisSign() {
+      var url = "/class/signIn/stu";
+      // var url="/index/class/signIn/stu"
       var data = {
-        cid: this.courseid
+        csiid: this.csiid
       };
+      // console.log(data)
       this.$http
         .get(url, { params: data })
         .then(res => {
@@ -62,11 +62,13 @@ export default {
             console.log(this.hito);
             this.finished = true;
             this.loading = false;
+          }else{
+            this.$notify({ type: "danger", message: "获取签到结果失败" });
           }
         })
         .catch(err => {
           console.log(err);
-          this.$notify({ type: "danger", message: "获取签到历史失败" });
+          this.$notify({ type: "danger", message: "获取签到结果失败" });
         });
     },
     load_more_items: function() {
@@ -74,19 +76,63 @@ export default {
       this.loading = true;
       this.page += 1;
       this.offset = this.limit * this.page;
-      this.getAllSign();
+      if(this.id!=null||this.id!=undefined){
+        setTimeout(() =>{
+          console.log("1")
+        this.getthisSign();
+      },50)
+      }
+      
+    },
+    getThey() {
+      this.csiid = this.$route.params.id;
+      this.startTime = this.$route.params.startTime;
+      this.endTime = this.$route.params.endTime;
     }
   },
   mounted() {
+    // this.getThey();
+    this.csiid = this.$route.params.id;
+      this.startTime = this.$route.params.startTime;
+      this.endTime = this.$route.params.endTime;
+    // this.$nextTick(() =>{
+    //     this.getthisSign();
+    //   })
+    
+      if(this.$route.params.id!=null||this.$route.params.id!=undefined){
+        setTimeout(() =>{
+        this.getthisSign();
+        console.log("2")
+      },50)
+      }
+
     if (window.history && window.history.pushState) {
-  history.pushState(null, null, document.URL);
-  window.addEventListener('popstate', this.onClickLeft, false);//false阻止默认事件 
-}
+      history.pushState(null, null, document.URL);
+      window.addEventListener("popstate", this.onClickLeft, false); //false阻止默认事件
+    }
   },
-  created() {},
-   destroyed () {
-    window.removeEventListener('popstate', this.onClickLeft, false);//false阻止默认事件
+  created() {
+    
   },
+  destroyed() {
+    window.removeEventListener("popstate", this.onClickLeft, false); //false阻止默认事件
+  },
+  watch: {
+    '$route'() {
+      // this.getThey();
+      this.csiid = this.$route.params.id;
+      this.startTime = this.$route.params.startTime;
+      this.endTime = this.$route.params.endTime;
+      console.log(this.$route.params.id)
+      if(this.$route.params.id!=null||this.$route.params.id!=undefined){
+        setTimeout(() =>{
+        this.getthisSign();
+        console.log("3")
+      },50);
+      }
+      
+    }
+  }
 };
 </script>
 
@@ -103,6 +149,10 @@ export default {
   text-align: center;
 }
 .emmm {
+  text-align: center;
+}
+.oo {
+  border: 1px solid #918b8b;
   text-align: center;
 }
 </style>

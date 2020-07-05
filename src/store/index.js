@@ -11,8 +11,9 @@ export default new Vuex.Store({
     QR: '',
     rolesData: [],
     adminMenus: [],
-    CLouduser:{
-      username: window.localStorage.getItem('user') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).username,},
+    CLouduser: {
+      username: window.localStorage.getItem('user') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).username,
+    },
     dicTypeId: '',
     dicTypeInfo: {
       id: '',
@@ -25,7 +26,8 @@ export default new Vuex.Store({
       name: '',
       value: '',
       typeId: ''
-    }
+    },
+    isTea: false
   },
   mutations: {
     getPassword(state, item) {
@@ -45,24 +47,27 @@ export default new Vuex.Store({
       for (var i = 0; i < obj.length; i++) {
         state.rolesData.push(obj[i])
       }
-      // state.rolesData = obj
+      
     },
-    initAdminMenu(state,menus){
-      state.adminMenus=menus
+    initAdminMenu(state, menus) {
+      state.adminMenus = menus
       // console.log("adminMenus")
       // console.log(state.adminMenus)
     },
-    login (state, user) {
+    login(state, user) {
       state.CLouduser = user
-      console.log("user")
-      console.log(state.CLouduser)
       window.localStorage.setItem('CLouduser', JSON.stringify(user))
     },
-    logout (state) {
+    logout(state) {
       state.user = []
       window.localStorage.removeItem('CLouduser')
+      // window.localStorage.removeItem('isTea')
       state.adminMenus = []
     },
+    // changeisT(state,flag){
+    //   state.isTea=flag
+    //   window.localStorage.setItem('isTea', JSON.stringify(flag))
+    // },
     getDicTypeId(state, id) {
       state.dicTypeId = id;
       console.log(id)

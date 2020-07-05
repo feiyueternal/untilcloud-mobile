@@ -20,16 +20,14 @@
           <van-cell :title="item.endTime"></van-cell>
         </van-cell>-->
         <van-cell-group>
-          
-            <div v-for="(item,index) in hito" :key="item.id">
-              <van-cell is-link to="SignMember">
+          <div v-for="(item,index) in hito" :key="item.id">
+            <van-cell is-link @click="detail(item)">
+              <!-- <span>{{index+1}}&nbsp;&nbsp;</span> -->
               <span>{{index+1}}&nbsp;&nbsp;</span>
-                <span v-if="item.mode=='time'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;限时签到&nbsp;&nbsp;</span>
-                <span v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手势签到&nbsp;&nbsp;</span>
-
-              </van-cell>
-            </div>
-          
+              <span v-if="item.mode=='time'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;限时签到&nbsp;&nbsp;</span>
+              <span v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手势签到&nbsp;&nbsp;</span>
+            </van-cell>
+          </div>
         </van-cell-group>
       </van-list>
     </div>
@@ -84,20 +82,30 @@ export default {
       this.page += 1;
       this.offset = this.limit * this.page;
       this.getAllSign();
+    },
+    detail(item) {
+      this.$router.push({
+        name: "SignMember",
+        params: {
+          id: item.id,
+          startTime:item.startTime,
+          endTime:item.endTime
+        }
+      });
     }
   },
   mounted() {
     this.getCourseInfo();
     this.getAllSign();
     if (window.history && window.history.pushState) {
-  history.pushState(null, null, document.URL);
-  window.addEventListener('popstate', this.onClickLeft, false);//false阻止默认事件 
-}
+      history.pushState(null, null, document.URL);
+      window.addEventListener("popstate", this.onClickLeft, false); //false阻止默认事件
+    }
   },
   created() {},
-   destroyed () {
-    window.removeEventListener('popstate', this.onClickLeft, false);//false阻止默认事件
-  },
+  destroyed() {
+    window.removeEventListener("popstate", this.onClickLeft, false); //false阻止默认事件
+  }
 };
 </script>
 
