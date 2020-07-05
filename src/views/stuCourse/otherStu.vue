@@ -1,7 +1,7 @@
 <template>
   <div class="otherStu">
     <van-nav-bar title left-text="返回" left-arrow @click-left="onClickLeft" />
-    <van-cell is-link to="otherStu" :key="index" v-for="(item, index) in stuList">
+    <van-cell  :key="index" v-for="(item, index) in stuList">
       <van-row gutter="5" type="flex">
         <van-col span="8" offset="2">
           <van-image round width="5rem" height="5rem" :src="item.cover">

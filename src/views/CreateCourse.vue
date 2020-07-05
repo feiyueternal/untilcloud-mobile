@@ -12,7 +12,7 @@
           <template v-slot:error>加载失败</template>
         </van-image>
       </van-uploader>
-      <van-field label="课程" v-model="Info.name" required></van-field>
+      <van-field label="课程" v-model="Info.name" required :error-message="err_mes.name" clearable></van-field>
       <van-field
         readonly
         clickable
@@ -22,6 +22,8 @@
         placeholder="点击选择"
         @click="showPicker4 = true"
         required
+        :error-message="err_mes.grade"
+        clearable
       />
       <van-popup v-model="showPicker4" position="bottom">
         <van-picker
@@ -37,7 +39,7 @@
 
       <!-- <van-field label="学期" type="number" v-model="Info.semester"></van-field> -->
       <!-- <van-field label="学校" v-model="Info.school"></van-field> -->
-       <van-field
+      <van-field
         readonly
         clickable
         name="picker"
@@ -46,6 +48,8 @@
         placeholder="点击选择"
         @click="showPicker5 = true"
         required
+        :error-message="err_mes.semester"
+        clearable
       />
       <van-popup v-model="showPicker5" position="bottom">
         <van-picker
@@ -55,7 +59,7 @@
           @cancel="showPicker5 = false"
         />
       </van-popup>
-      
+
       <van-field
         readonly
         clickable
@@ -65,6 +69,8 @@
         placeholder="点击选择"
         @click="showPicker1 = true"
         required
+        :error-message="err_mes.school"
+        clearable
       />
       <van-popup v-model="showPicker1" position="bottom">
         <van-picker
@@ -84,6 +90,8 @@
         placeholder="点击选择"
         @click="showPicker2 = true"
         required
+        :error-message="err_mes.college"
+        clearable
       />
       <van-popup v-model="showPicker2" position="bottom">
         <van-picker
@@ -116,7 +124,13 @@
       <!-- <van-field label="学院" v-model="Info.college"></van-field> -->
       <!-- <van-field label="学院ID" v-model="Info.collegeId"></van-field> -->
       <!-- <van-field label="专业" v-model="Info.major"></van-field> -->
-      <van-field label="老师" v-model="Info.teacher" required></van-field>
+      <van-field
+        label="老师"
+        v-model="Info.teacher"
+        required
+        :error-message="err_mes.teacher"
+        clearable
+      ></van-field>
       <van-field label="学习要求" v-model="Info.learnRequire"></van-field>
       <van-field label="教学计划" v-model="Info.teachProgress"></van-field>
       <van-field label="考试安排" v-model="Info.examArrange"></van-field>
@@ -135,6 +149,36 @@ export default {
       showPicker3: false,
       showPicker4: false,
       showPicker5: false,
+      CreateForm: {
+        file: "",
+        name: "",
+        grade: "",
+        semester: "",
+        school: "",
+        schoolId: "",
+        college: "",
+        collegeId: "",
+        major: "",
+        teacher: "",
+        learnRequire: "",
+        teachProgress: "",
+        examArrange: ""
+      },
+      err_mes: {
+        file: "",
+        name: "",
+        grade: "",
+        semester: "",
+        school: "",
+        schoolId: "",
+        college: "",
+        collegeId: "",
+        major: "",
+        teacher: "",
+        learnRequire: "",
+        teachProgress: "",
+        examArrange: ""
+      },
       Info: {
         file: "",
         name: "",
@@ -160,10 +204,63 @@ export default {
       college_select: [],
       major_values: [],
       major_select: [],
-      formdata: new window.FormData()
+      formdata: new window.FormData(),
+      flag: false,
     };
   },
   methods: {
+    //表单验证
+    rp_test() {
+      let test = new Promise((resolve, reject) => {
+       
+        this.flag = false;
+        if (this.Info.name == "") {
+          this.err_mes.name = "请输入课程";
+          resolve(false);
+        } else if (this.Info.grade == "") {
+          this.err_mes.grade = "请选择年级";
+          this.err_mes.name = "";
+          resolve(false);
+        } else if (this.Info.semester == "") {
+          this.err_mes.semester = "请选择学期";
+          this.err_mes.name = "";
+          this.err_mes.grade = "";
+          resolve(false);
+        } else if (this.Info.school == "") {
+          this.err_mes.school = "请选择学校";
+          this.err_mes.name = "";
+          this.err_mes.grade = "";
+          this.err_mes.semester = "";
+           resolve(false);
+        } else if (this.Info.college == "") {
+          this.err_mes.college = "请选择学院";
+          this.err_mes.school = "";
+          this.err_mes.name = "";
+          this.err_mes.grade = "";
+          this.err_mes.semester = "";
+          resolve(false);
+        } else if (this.Info.teacher == "") {
+          this.err_mes.teacher = "请输入老师";
+          this.err_mes.college = "";
+          this.err_mes.school = "";
+          this.err_mes.name = "";
+          this.err_mes.grade = "";
+          this.err_mes.semester = "";
+          resolve(false);
+        }
+        else {
+           this.err_mes.teacher = "";
+          this.err_mes.college = "";
+          this.err_mes.school = "";
+          this.err_mes.name = "";
+          this.err_mes.grade = "";
+          this.err_mes.semester = "";
+          resolve(true);
+          this.flag = true;
+        }
+      });
+      return test;
+    },
     getGrade() {
       var grade_url = `/userInfo/get/777`;
       // var grade_url = `/index/userInfo/get/777`;
@@ -355,7 +452,9 @@ export default {
       this.Info.file = file.file;
     },
     create() {
-      var url = "/class/course/add";
+      this.rp_test();
+      if(this.flag == true) {
+var url = "/class/course/add";
       // var url = "/index/class/course/add";
       this.formdata.append("cover", this.Info.file);
       this.formdata.append("name", this.Info.name);
@@ -380,8 +479,8 @@ export default {
           if (res.data.code == 200) {
             console.log(res.data.data);
             this.Info = "";
-             this.$store.commit('getQR', res.data.data);
-            this.$router.push({ name: "showQR" }); 
+            this.$store.commit("getQR", res.data.data);
+            this.$router.push({ name: "showQR" });
           } else {
             this.$notify({ type: "danger", message: res.data.message });
           }
@@ -390,6 +489,8 @@ export default {
           console.log(err);
           this.$notify({ type: "danger", message: "创建失败" });
         });
+      }
+      
     }
   },
   mounted() {
