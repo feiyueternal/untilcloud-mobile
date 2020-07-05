@@ -239,8 +239,8 @@ export default {
             password: this.userlogin.password,
             rememberMe: false
           };
-          var url = "/common/login";
-          // var url="/index/common/login";
+          // var url = "/common/login";
+          var url="/index/common/login";
           this.user_test();
           if (this.flag == true) {
             this.flag = false;
@@ -254,8 +254,8 @@ export default {
             rememberMe: false
           };
           // var url = "http://47.98.142.113:8443/api/common/phoneLogin";
-          var url = "/common/phoneLogin";
-          // var url="/index/common/phoneLogin";
+          // var url = "/common/phoneLogin";
+          var url="/index/common/phoneLogin";
           this.phone_test();
           if (this.flag == true) {
             this.flag = false;

@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    password:'',
+    createPassword:'',
     courseInfo: '',
     QR: '',
     rolesData: [],
@@ -26,6 +28,12 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    getPassword(state, item) {
+      state.password = item;
+    },
+    getCreatePassword(state, item) {
+      state.createPassword = item;
+    },
     getQR(state, item) {
       state.QR = item;
     },

@@ -56,6 +56,12 @@ export default {
                   }
                 });
               } else {
+                this.$router.push({
+                  name: "stuGesSign",
+                  params: {
+                    courseinfo: this.signinfo
+                  }
+                });
               }
               console.log(this.signinfo);
             } else {
