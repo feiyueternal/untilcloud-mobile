@@ -28,8 +28,8 @@ export default {
 
   methods: {
     Check() {
-      // var url="/class/stu/course/getJoin";
-      var url = "/index/class/stu/course/getJoin";
+      var url="/class/stu/course/getJoin";
+      // var url = "/index/class/stu/course/getJoin";
       this.$http
         .get(url)
         .then(res => {
@@ -53,8 +53,8 @@ export default {
     },
     join() {
     //   this.Check();
-      // var url = "/class/stu/course/join";
-      var url = "/index/class/stu/course/join";
+      var url = "/class/stu/course/join";
+      // var url = "/index/class/stu/course/join";
       var data = { cid: this.courseInfo.id };
       this.$http
         .get(url, { params: data })

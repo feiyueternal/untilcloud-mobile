@@ -1,6 +1,5 @@
 <template>
   <div class="otherStu">
-<<<<<<< HEAD
     <van-nav-bar title left-text="返回" left-arrow @click-left="onClickLeft" />
     <van-cell is-link to="otherStu" :key="index" v-for="(item, index) in stuList">
       <van-row gutter="5" type="flex">
@@ -21,9 +20,6 @@
         </van-col>
       </van-row>
     </van-cell>
-=======
-        <van-nav-bar title="" left-text="??" left-arrow @click-left="onClickLeft" />
->>>>>>> 00a872c5e7c5c156208201ca190cd0c23e50a933
   </div>
 </template>
 
@@ -38,8 +34,8 @@ export default {
   },
   methods: {
     getStu() {
-      var url = "/index/class/stu/course/stu";
-      // var url = "/class/stu/course/stu";
+      // var url = "/index/class/stu/course/stu";
+      var url = "/class/stu/course/stu";
       var data = {
         cid: this.courseInfo.id
       };

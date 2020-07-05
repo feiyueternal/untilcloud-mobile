@@ -157,17 +157,17 @@ export default {
           phone: this.phonelogin.phone,
           count: 4
         };
-        // var url = "/common/getVerificationCode";
-        var url="/index/common/getVerificationCode";
+        var url = "/common/getVerificationCode";
+        // var url="/index/common/getVerificationCode";
         this.$http
           .get(url, { params: data })
           .then(res => {
             this.ss = res.data;
             if (res.data.code == 200) {
               this.$notify({ type: "success", message: "发送成功" });
-              this.$dialog.alert({
-                message: "验证码为" + res.data.data
-              });
+              // this.$dialog.alert({
+              //   message: "验证码为" + res.data.data
+              // });
               this.time = 60;
               this.disabled = true;
               this.timer();
@@ -239,8 +239,8 @@ export default {
             password: this.userlogin.password,
             rememberMe: false
           };
-          // var url = "/common/login";
-          var url="/index/common/login";
+          var url = "/common/login";
+          // var url="/index/common/login";
           this.user_test();
           if (this.flag == true) {
             this.flag = false;
@@ -254,8 +254,8 @@ export default {
             rememberMe: false
           };
           // var url = "http://47.98.142.113:8443/api/common/phoneLogin";
-          // var url = "/common/phoneLogin";
-          var url="/index/common/phoneLogin";
+          var url = "/common/phoneLogin";
+          // var url="/index/common/phoneLogin";
           this.phone_test();
           if (this.flag == true) {
             this.flag = false;

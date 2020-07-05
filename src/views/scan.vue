@@ -37,8 +37,8 @@ export default {
           //   "Format: " + result.format + "\n" +
           //   "Cancelled: " + result.cancelled)
           value = Number(result.text);
-          var url = `/index/class/stu/course/get/${this.value}`;
-      // var url = `/class/stu/course/get/${this.value}`;
+          // var url = `/index/class/stu/course/get/${this.value}`;
+      var url = `/class/stu/course/get/${this.value}`;
       
       // var data = {cid: this.value};
       this.$http

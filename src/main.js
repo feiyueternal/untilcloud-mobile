@@ -16,7 +16,7 @@ Vue.use(Vant)
 Vue.use(less)
 Vue.component('barcode', VueBarcode);
 
-// axios.defaults.baseURL='http://47.98.142.113:8443/api'
+axios.defaults.baseURL='http://47.98.142.113:8443/api'
 Vue.prototype.$http = axios
 
 const originalPush = Router.prototype.push

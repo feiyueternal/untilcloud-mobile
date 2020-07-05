@@ -169,9 +169,9 @@ export default {
             this.ss=res.data
             if (res.data.code == 200) {
               this.$notify({ type: "success", message: "发送成功" });
-              this.$dialog.alert({
-                message: "验证码为" + res.data.data
-              });
+              // this.$dialog.alert({
+              //   message: "验证码为" + res.data.data
+              // });
               this.time = 60;
               this.disabled = true;
               this.timer();

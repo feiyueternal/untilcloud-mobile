@@ -88,7 +88,7 @@ export default new Vuex.Store({
   actions: {
     getRolesData(context) {
       // this.$http
-      axios.get('/index/admin/user/role')
+      axios.get('/admin/user/role')
         .then(res => {
           if (res.data.code == 200) {
             // state.rolesData = res.data.data;
