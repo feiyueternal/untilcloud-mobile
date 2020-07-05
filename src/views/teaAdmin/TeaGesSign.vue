@@ -34,7 +34,7 @@ export default {
       flag: 0, //0 当前无签到; 1 当前有签到
       err: null,
       signRe: null,
-      gesPassword: '',
+      gesPassword: ""
     };
   },
 
@@ -181,65 +181,66 @@ export default {
     },
     send() {
       console.log(123);
-    //   this.user_test();
-    // this.$store.commit('getCreatePassword', item);
-    this.getGesPassword();
+      //   this.user_test();
+      // this.$store.commit('getCreatePassword', item);
+      
       this.checknowSign();
-        setTimeout(() => {
-          this.$nextTick(() => {
-            console.log(this.flag);
-            if (this.flag == 0) {
-                var url="/class/signIn/add"
-              // var url = "/index/class/signIn/add";
-              if (this.latit == null || this.longt == null) {
-                this.$dialog
-                  .alert({
-                    message: "获取不到位置 无法创建签到"
-                  })
-                  .then(() => {
-                    this.start_btn = true;
-                  });
-              } else {
-                var data = {
-                  mode: "gesture",
-                  value: this.gesPassword.toString(),
-                  longitude: this.longt,
-                  latitude: this.latit,
-                  course: {
-                    id: this.courseInfo.id
-                  }
-                };
-                console.log(this.flag);
-                console.log(data);
-                this.$http
-                  .post(url, data)
-                  .then(res => {
-                    if (res.data.code == 200) {
-                    //   this.start_btn = true;
-                        this.$notify({ type: "success", message: "创建签到成功" });
-                    //   this.timer(this.sign_time, 0);
-                      setTimeout(() => {
-                        this.checknowSign();
-                        // this.end_btn = false;
-                      }, 300);
-                    }
-                  })
-                  .catch(err => {
-                    console.log(err);
-                    this.$notify({ type: "danger", message: "创建签到失败" });
-                  });
-              }
-            } else {
+      setTimeout(() => {
+        this.$nextTick(() => {
+          console.log(this.flag);
+          if (this.flag == 0) {
+            var url = "/class/signIn/add";
+            this.getGesPassword();
+            // var url = "/index/class/signIn/add";
+            if (this.latit == null || this.longt == null) {
               this.$dialog
                 .alert({
-                  message: "正在进行签到 请勿重复添加"
+                  message: "获取不到位置 无法创建签到"
                 })
                 .then(() => {
                   this.start_btn = true;
                 });
+            } else {
+              var data = {
+                mode: "gesture",
+                value: this.gesPassword.toString(),
+                longitude: this.longt,
+                latitude: this.latit,
+                course: {
+                  id: this.courseInfo.id
+                }
+              };
+              console.log(this.flag);
+              console.log(data);
+              this.$http
+                .post(url, data)
+                .then(res => {
+                  if (res.data.code == 200) {
+                    //   this.start_btn = true;
+                    this.$notify({ type: "success", message: "创建签到成功" });
+                    //   this.timer(this.sign_time, 0);
+                    setTimeout(() => {
+                      this.checknowSign();
+                      // this.end_btn = false;
+                    }, 300);
+                  }
+                })
+                .catch(err => {
+                  console.log(err);
+                  this.$notify({ type: "danger", message: "创建签到失败" });
+                });
             }
-          });
-        }, 300);
+          } else {
+            this.$dialog
+              .alert({
+                message: "正在进行签到 请勿重复添加"
+              })
+              .then(() => {
+                this.start_btn = true;
+              });
+          }
+        });
+      }, 300);
     },
     // 跳过
     skip() {

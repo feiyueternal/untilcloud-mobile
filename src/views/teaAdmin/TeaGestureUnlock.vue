@@ -191,7 +191,7 @@ export default {
              // 设置/登录成功
              console.log('设置/登录成功')
              this.$store.commit('getCreatePassword', this.createPassword);
-             this.$emit('onDrawDone', {success: true, pwd: this.password})
+            //  this.$emit('onDrawDone', {success: true, pwd: this.password})
              setTimeout(() => {
                this.password = []
                this.cas.clearRect(0,0,this.clientWidth,this.clientHeight);

@@ -12,6 +12,8 @@
           <template v-slot:error>加载失败</template>
         </van-image>
       </van-uploader>
+
+      
       <van-field label="课程" v-model="Info.name" required :error-message="err_mes.name" clearable></van-field>
       <van-field
         readonly
